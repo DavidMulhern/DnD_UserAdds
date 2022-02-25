@@ -11,7 +11,8 @@ const ToDoList = () => {
     //handles all the existing tasks which are already created
     const [taskList, setTaskList] = useState([])
 
-    //
+    
+    
     //toggle represents the button to activate the modal popup
     const toggle = () => {
         setModal(!modal);
@@ -22,6 +23,7 @@ const ToDoList = () => {
         axios.get('http://localhost:8080/api')
         .then((response)=>{
             setTaskList(response.data);
+            console.log(response.data)
         })
         .catch(()=>{
             
@@ -38,8 +40,8 @@ const ToDoList = () => {
         let tempList = taskList
         //push the new item to a temp holder of all existing items
         tempList.push(taskObj)
-        //set local storage to temp holder
-        localStorage.setItem("taskList", JSON.stringify(tempList))
+        // //set local storage to temp holder
+        // localStorage.setItem("taskList", JSON.stringify(tempList))
         //set state to be equal to temp holder (which has the new item in it) I.E new item being added
         setTaskList(tempList)
         setModal(false)
@@ -54,8 +56,7 @@ const ToDoList = () => {
             })
             .catch(() => {
                 console.log('Internal server error');
-            })
-            ;
+            });
     }
     
 
@@ -70,9 +71,10 @@ const ToDoList = () => {
 
                 {taskList.map((obj) =>
                     <li>
-                        {obj.Name},{obj.Description},{obj.NumberSelect}
+                        {obj.value1}, {obj.value2}, {obj.value3}, {obj.value4}, {obj.value5}, {obj.value6}
                     </li>
                 )}
+                
             </div>
             <CreateTaskPopup toggle={toggle} modal={modal} save={saveTask} />
         </>

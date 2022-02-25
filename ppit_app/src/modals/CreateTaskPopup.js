@@ -2,47 +2,81 @@ import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const CreateTaskPopup = ({modal, toggle, save}) => {
-    const [taskName, setTaskName] = useState('');
-    const [description, setDescription] = useState('');
+    const [value1, setValue1] = useState('');
+    const [value2, setValue2] = useState('');
+    const [value3, setValue3] = useState('');
+    const [value4, setValue4] = useState('');
+    const [value5, setValue5] = useState('');
+    const [value6, setValue6] = useState('');
+    
 
     const handleChange = (e) => {
         
         const {name, value} = e.target
 
-        if(name === "taskName"){
-            setTaskName(value)
-        }else{
-            setDescription(value)
-        }
-
+        // if(name === "taskName"){
+        //     setValue1(value)
+        // }else{
+        //     setDescription(value)
+        // }
+        
+        switch(name) {
+            case "field1":setValue1(value);break;
+            case "field2":setValue2(value);break;
+            case "field3":setValue3(value);break;
+            case "field4":setValue4(value);break;
+            case "field5":setValue5(value);break;
+            case "field6":setValue6(value);break;
+          }
 
     }
 
     const handleSave = (e) => {
         e.preventDefault()
         let taskObj = {}
-        taskObj["Name"] = taskName
-        taskObj["Description"] = description
+        taskObj["value1"] = value1
+        taskObj["value2"] = value2
+        taskObj["value3"] = value3
+        taskObj["value4"] = value4
+        taskObj["value5"] = value5
+        taskObj["value6"] = value6
         save(taskObj)
-
     }
-
-
-
-    
 
     return (
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>Create Task</ModalHeader>
+            <ModalHeader toggle={toggle}>field1</ModalHeader>
             <ModalBody>
             
                     <div className = "form-group">
-                        <label>Task Name</label>
-                        <input type="text" className = "form-control" value = {taskName} onChange = {handleChange} name = "taskName"/>
+                        <label>field1</label>
+                        <input type="text" className = "form-control" value = {value1} 
+                        onChange = {handleChange} name = "field1"/>
                     </div>
                     <div className = "form-group">
-                        <label>Description</label>
-                        <textarea rows = "5" className = "form-control" value = {description} onChange = {handleChange} name = "description"></textarea>
+                        <label>field2</label>
+                        <textarea rows = "5" className = "form-control" value = {value2} 
+                        onChange = {handleChange} name = "field2"></textarea>
+                    </div>
+                    <div className = "form-group">
+                        <label>field3</label>
+                        <input type="text" className = "form-control" value = {value3} 
+                        onChange = {handleChange} name = "field3"/>
+                    </div>
+                    <div className = "form-group">
+                        <label>field4</label>
+                        <textarea rows = "5" className = "form-control" value = {value4} 
+                        onChange = {handleChange} name = "field4"></textarea>
+                    </div>
+                    <div className = "form-group">
+                        <label>field5</label>
+                        <input type="text" className = "form-control" value = {value5} 
+                        onChange = {handleChange} name = "field5"/>
+                    </div>
+                    <div className = "form-group">
+                        <label>field6</label>
+                        <textarea rows = "5" className = "form-control" value = {value6} 
+                        onChange = {handleChange} name = "field6"></textarea>
                     </div>
                 
             </ModalBody>

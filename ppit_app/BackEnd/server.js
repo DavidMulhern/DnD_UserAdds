@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-
+//
 //----------------------------------------------------MONGOOSE CONNECTION-------------------------------------------------------
 //Mongo database link
 const MONGODB_URI = 'mongodb+srv://svetlin:svetlin@cluster0.mfk7y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
@@ -70,11 +70,12 @@ app.use(cors());
 //Schema for the structure of the documents in the database
 const Schema = mongoose.Schema;
 var contentPostSchema = new Schema({
-    Title: String,
-    Description: String,
-    Number: Number,
-    MyStringTag: String,
-    MyNumberTag: Number,
+    value1: String,
+    value2: String,
+    value3: String,
+    value4: String,
+    value5: String,
+    value6: String,
     date: {
         type: String,
         default: Date.now()
@@ -89,13 +90,14 @@ var contentPost = mongoose.model("Content", contentPostSchema)
 app.post('/api/save', (req, res) => {
     //Models are responsible for creating and reading documents from the underlying MongoDB database.
     contentPost.create({
-        Title: req.body.Name,
-        Description: req.body.Description,
-        Number: req.body.NumberSelect,
-        MyStringTag: "Placeholder String",
-        MyNumberTag:0
+        value1: req.body.value1,
+        value2: req.body.value2,
+        value3: req.body.value3,
+        value4: req.body.value4,
+        value5: req.body.value5,
+        value6: req.body.value6,
     })
-    console.log(req.body.NumberSelect);
+    
     //This sends a messaage back to ensure items added to the database are not added
     //multiple times by mistake
     res.send('Data Sent to Database!')
@@ -115,29 +117,24 @@ app.get('/api', (req, res) => {
 
 
 
-//This is listening for post requests from the ToDoList.js
-app.post('/api/save2', (req, res) => {
+// //This is listening for post requests from the ToDoList.js
+// app.post('/api/save2', (req, res) => {
 
-    console.log('Body: ', req.body)
+//     const dataM = req.body;
+//     const newBlogPost = new BlogPost(dataM);
 
-    const dataM = req.body;
-    console.log('check dataM Name: ' + dataM.Name)
-
-    const newBlogPost = new BlogPost(dataM);
-    console.log('check newBlogPost: ' + newBlogPost)
-
-    newBlogPost.save((error) => {
-        if (error) {
-            res.status(500).json({ msg: 'Sorry, we got a problem' })
-        } else {
-            res.json({
-                msg: "Your Data has been saved to the database"
-            });
-        }
-    });
+//     newBlogPost.save((error) => {
+//         if (error) {
+//             res.status(500).json({ msg: 'Sorry, we got a problem' })
+//         } else {
+//             res.json({
+//                 msg: "Your Data has been saved to the database"
+//             });
+//         }
+//     });
 
 
-});
+// });
 
 
 //----------------------------------------------------PORT CONNECTION----------------------------------------------------
