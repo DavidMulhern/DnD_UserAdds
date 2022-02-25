@@ -11,6 +11,7 @@ const ToDoList = () => {
     //handles all the existing tasks which are already created
     const [taskList, setTaskList] = useState([])
 
+    //
     //toggle represents the button to activate the modal popup
     const toggle = () => {
         setModal(!modal);
