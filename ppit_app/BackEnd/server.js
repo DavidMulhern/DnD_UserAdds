@@ -115,6 +115,15 @@ app.get('/api', (req, res) => {
 });
 
 
+app.delete('/api/task/:id', (req, res) => {
+    contentPost.findByIdAndDelete(req.params.id, (err, data) => {
+        if (err) {
+            res.status(404).send('Sorry, cant find that' + err);
+        } else {
+            res.status(200).send(data);
+        }
+    })
+})
 
 
 // //This is listening for post requests from the ToDoList.js
