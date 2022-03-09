@@ -1,18 +1,23 @@
 // Importing use state
-import userEvent from '@testing-library/user-event';
 import React, {useState} from 'react';
+// Importing a history hook.
+import { useHistory } from 'react-router-dom'
 
-const Login = () => {
+const Register = () => {
+
+    // History hook.
+    const history = useHistory()
     
     // State variables.
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     // Front end to back end function. Making it asynchronus and wait for a repsonse.
-    async function loginUser(event) {
+    async function registerUser(event) {
         // This protects the event. E.g multiple submit clicks.
         event.preventDefault()
-        const response = await fetch('http://localhost:8080/api/login', {
+        const response = await fetch('http://localhost:8080/api/register', {
             method: 'POST',
             // Informing back end of the content type.
             headers: {
@@ -20,30 +25,31 @@ const Login = () => {
             },
             // Passing the body 
             body: JSON.stringify({
+                name,
                 email,
                 password,
             }),
         })
 
-        // Convert it into JSON.
         const data = await response.json()
-
-        if(data.user)
-        {
-            // Logins successful, store the token!
-            localStorage.setItem('token', data.user)
-            alert('Login Successful')
-            window.location.href = '/UserPage'
-        }
-        else{
-            alert('Please check username and password')
-        }
+        // Convert it into JSON.
+        // if the status comes back ok, push to login
+        if(data.status === 'ok'){
+           history.push('/login')
+        }   
     }
 
     return(
         <div>
-            <h1>Login</h1>
-            <form onSubmit={loginUser}>
+            <h1>Register</h1>
+            <form onSubmit={registerUser}>
+                <label>Name: </label>
+                <input value={name}
+                onChange={(e) => setName(e.target.value)}
+                type = "text"
+                placeholer="Name" 
+                />
+                <br />
                 <label>Email: </label>
                 <input value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -58,9 +64,9 @@ const Login = () => {
                 placeholer="Password" 
                 />
                 <br />
-                <input type="submit" value="Login"/>
+                <input type="submit" value="Register"/>
             </form>
         </div>
     )
 };
-export default Login;
+export default Register;
