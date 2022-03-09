@@ -22,4 +22,8 @@ Issues Encountered:
 
 1. React Hook "useState" cannot be called in a class component.
 Solve:
+<<<<<<< HEAD
 Because the state will store variable values. A function is appropriate for use. (reactjs.org/docs/hooks-state.html)
+=======
+Because the state will store variable values. A function is appropriate for use. (reactjs.org/docs/hooks-state.html)
+>>>>>>> 3a531dd054fcf08626f1b053296ff2a33fb98364

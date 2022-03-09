@@ -130,7 +130,7 @@ app.delete('/api/task/:id', (req, res) => {
             res.status(200).send(data);
         }
     })
-
+});
 //----------------------------------------------------User Register/Login Post----------------------------------------------------
 
 // User registration post to DB.
