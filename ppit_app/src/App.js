@@ -1,18 +1,21 @@
 import './App.css';
+// Importing functional components.
 import ToDoList from './Components/ToDoList';
+import Register from './Components/Register';
+import Login from './Components/Login';
+import UserPage from './Components/UserPage';
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Import navbar and nav for navigation.
 import { Navbar, Nav } from 'react-bootstrap'
 // Import Component, for routing purposes.
 import React, { Component } from 'react';
-// Import classes
-import { Login } from './Components/Login';
+// Import classes.
 import { Home } from './Components/Home';
 // import react router DOM for routing. Alias for BrowserRouter for easier use.
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-// Need to place into classes so app can render different pages/Components.
+// Need to place into classes/functions so app can render different pages/Components.
 class App extends Component {
   render() {
     return (
@@ -23,22 +26,24 @@ class App extends Component {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/ToDoList">ToDoList</Nav.Link>
+              <Nav.Link href="/Register">Register</Nav.Link>
               <Nav.Link href="/Login">Login</Nav.Link>
+              <Nav.Link href="/UserPage">UserPage</Nav.Link>
             </Nav>
           </Navbar>
           <br />
           
           <Switch>
             <Route path='/' component={Home} exact />
-            <Route path='/Login' component={Login} exact />
+            <Route path='/Register' component={Register} exact />
             <Route path='/ToDoList' component={ToDoList} exact />
+            <Route path='/Login' component={Login} exact />
+            <Route path='/UserPage' component={UserPage} exact />
           </Switch>
         </div>
       </Router>
     );
   }
 }
-
-
 
 export default App;
