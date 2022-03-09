@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CreateTaskPopup from '../modals/CreateTaskPopup';
 import axios from 'axios';
-
+import Card from './Card';
 
 const ToDoList = () => {
 
@@ -11,8 +11,6 @@ const ToDoList = () => {
     //handles all the existing tasks which are already created
     const [taskList, setTaskList] = useState([])
 
-    
-    
     //toggle represents the button to activate the modal popup
     const toggle = () => {
         setModal(!modal);
@@ -23,18 +21,39 @@ const ToDoList = () => {
         axios.get('http://localhost:8080/api')
         .then((response)=>{
             setTaskList(response.data);
-            console.log(response.data)
+            console.log('here '+response.data[0]._id)
         })
         .catch(()=>{
             
         });
-            //console.log(arr)
-             //setTaskList(arr)
          
      }, [])
 
-     
 
+
+
+     const deleteTask = (index)=>
+     {
+         console.log('The index is '+index)
+         let tempList=taskList
+         console.log('Searching: '+tempList[index]._id)
+
+         axios.delete('http://localhost:8080/api/task/' + tempList[index]._id)
+                 .then(() => {
+                     'Task deleted from database'
+                 })
+                 .catch(()=>{
+                     'Error from delete Axios call'
+                 });
+
+         tempList.splice(index,1)
+         setTaskList(tempList)
+        console.log(taskList)
+        console.log(index)
+
+         window.location.reload()
+     }
+     
     //Saves a task to the task array
     const saveTask = (taskObj) => {
         let tempList = taskList
@@ -57,6 +76,7 @@ const ToDoList = () => {
             .catch(() => {
                 console.log('Internal server error');
             });
+            window.location.reload()
     }
     
 
@@ -69,10 +89,11 @@ const ToDoList = () => {
             </div>
             <div className='task-container'>
 
-                {taskList.map((obj) =>
-                    <li>
-                        {obj.value1}, {obj.value2}, {obj.value3}, {obj.value4}, {obj.value5}, {obj.value6}
-                    </li>
+                {taskList && taskList.map((obj,index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask}/>
+
+                    // <li>
+                    //     {obj.value1}, {obj.value2}, {obj.value3}, {obj.value4}, {obj.value5}, {obj.value6}
+                    // </li>
                 )}
                 
             </div>

@@ -122,6 +122,15 @@ app.get('/api', (req, res) => {
         })
 });
 
+app.delete('/api/task/:id', (req, res) => {
+    contentPost.findByIdAndDelete(req.params.id, (err, data) => {
+        if (err) {
+            res.status(404).send('Sorry, cant find that' + err);
+        } else {
+            res.status(200).send(data);
+        }
+    })
+
 //----------------------------------------------------User Register/Login Post----------------------------------------------------
 
 // User registration post to DB.
