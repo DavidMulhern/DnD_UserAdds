@@ -27,7 +27,7 @@ const ToDoList = () => {
             
         });
          
-     }, [])
+     }, [taskList])
 
 
 
@@ -50,8 +50,9 @@ const ToDoList = () => {
          setTaskList(tempList)
         console.log(taskList)
         console.log(index)
+        console.log(index)
 
-         window.location.reload()
+         //window.location.reload()
      }
      
     //Saves a task to the task array
@@ -76,7 +77,7 @@ const ToDoList = () => {
             .catch(() => {
                 console.log('Internal server error');
             });
-            window.location.reload()
+            //window.location.reload()
     }
     
 
