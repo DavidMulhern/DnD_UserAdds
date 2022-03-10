@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
+import EditTask from '../modals/EditTask';
 
 const Card = ({taskObj, index, deleteTask, updateListArray}) => {
+
     const [modal, setModal] = useState(false);
 
     const colors = [
@@ -26,14 +28,14 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
         }
     ]
 
-
-
     const toggle = () => {
         setModal(!modal);
     }
 
     const updateTask = (obj) => {
+        
         updateListArray(obj, index)
+        setModal(!modal);
     }
 
     const handleDelete = () => {
@@ -50,6 +52,7 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
                     <span className="card-header" style={{ "background-color": colors[index % 5].secondaryColor, "borderRadius": "10px" }}>{taskObj.value1}</span>
 
                     <p>INDEX: {index}</p>
+                    <p>_ID{taskObj._id}</p>
                     <p className="mt-0">{taskObj.value2}</p>
                     <p className="mt-0">{taskObj.value3}</p>
                     <p className="mt-0">{taskObj.value4}</p>
@@ -62,7 +65,7 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
                         <i className="fas fa-trash-alt" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={handleDelete}></i>
                     </div>
                 </div>
-            {/* <EditTask modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/> */}
+            <EditTask modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/>
         </div>
 
     );
