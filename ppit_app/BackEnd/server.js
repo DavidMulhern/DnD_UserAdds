@@ -10,7 +10,8 @@ const User = require('./models/user.model')
 // JSON web tokens handle. For authentication and the use of JWD tokens.
 const jwt = require('jsonwebtoken')
 // Handle for bcrypt - password encryption for the DB. A hashing algorithm
-const bcrypt = require('bcryptjs')
+const bcrypt = require('bcryptjs');
+const { findByIdAndUpdate } = require('./models/user.model');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
@@ -131,6 +132,32 @@ app.delete('/api/task/:id', (req, res) => {
         }
     })
 });
+// app.put('/api/task/:id', (req, res) => {
+//     console.log('server side '+req.params.id)
+//     contentPost.findByIdAndUpdate(req.params.id)
+//         .then((data) => {
+//             console.log('YUP')
+//             res.json(data);
+//         })
+//         .catch((error) => {
+//             console.log('Nope')
+//         })
+//     }) 
+
+
+    app.put('/api/task/:id', (req, res) => {
+        console.log(req.body)
+        contentPost.findByIdAndUpdate(req.params.id, req.body, { new: true },
+            (err, data) => {
+                if (err) {
+                    console.log('No')
+                    res.status(404).send('Sorry, cant find that' + err);
+                } else {
+                    res.status(200).send(data);
+                }
+            })
+    })
+
 //----------------------------------------------------User Register/Login Post----------------------------------------------------
 
 // User registration post to DB.

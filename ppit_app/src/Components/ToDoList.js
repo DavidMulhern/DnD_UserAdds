@@ -21,12 +21,10 @@ const ToDoList = () => {
         axios.get('http://localhost:8080/api')
         .then((response)=>{
             setTaskList(response.data);
-            console.log('here '+response.data[0]._id)
+
         })
         .catch(()=>{
-            
         });
-         
      }, [taskList])
 
 
@@ -34,9 +32,9 @@ const ToDoList = () => {
 
      const deleteTask = (index)=>
      {
-         console.log('The index is '+index)
+         //console.log('The index is '+index)
          let tempList=taskList
-         console.log('Searching: '+tempList[index]._id)
+         //console.log('Searching: '+tempList[index]._id)
 
          axios.delete('http://localhost:8080/api/task/' + tempList[index]._id)
                  .then(() => {
@@ -46,9 +44,9 @@ const ToDoList = () => {
                      'Error from delete Axios call'
                  });
 
-         tempList.splice(index,1)
-         setTaskList(tempList)
-        console.log(taskList)
+        //tempList.splice(index,1)
+        //setTaskList(tempList)
+        //console.log(taskList)
         console.log(index)
         console.log(index)
 
@@ -57,13 +55,13 @@ const ToDoList = () => {
      
     //Saves a task to the task array
     const saveTask = (taskObj) => {
-        let tempList = taskList
+        //let tempList = taskList
         //push the new item to a temp holder of all existing items
-        tempList.push(taskObj)
+        //tempList.push(taskObj)
         // //set local storage to temp holder
         // localStorage.setItem("taskList", JSON.stringify(tempList))
         //set state to be equal to temp holder (which has the new item in it) I.E new item being added
-        setTaskList(tempList)
+        //setTaskList(tempList)
         setModal(false)
         
         axios({
@@ -80,6 +78,23 @@ const ToDoList = () => {
             //window.location.reload()
     }
     
+    const updateListArray= (obj,index)=>{
+
+        let tempList = taskList
+        //tempList[index]=obj
+        //setTaskList(tempList)
+        //console.log('updated tasklist: '+taskList[index]._id+"     Index:"+index    )
+        console.log('Card side '+tempList[index]._id)
+        
+        axios.put('http://localhost:8080/api/task/' + tempList[index]._id,obj)
+                 .then(() => {
+                     'Task updated on database'
+                 })
+                 .catch(()=>{
+                     'Error from update Axios call'
+                 });
+                 
+    }
 
 
     return (
@@ -90,7 +105,7 @@ const ToDoList = () => {
             </div>
             <div className='task-container'>
 
-                {taskList && taskList.map((obj,index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask}/>
+                {taskList.map((obj,index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray={updateListArray}/>
 
                     // <li>
                     //     {obj.value1}, {obj.value2}, {obj.value3}, {obj.value4}, {obj.value5}, {obj.value6}
