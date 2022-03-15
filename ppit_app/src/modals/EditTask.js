@@ -1,100 +1,52 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
-const EditTask = ({modal, toggle, updateTask, taskObj}) => {
-    const [value1, setValue1] = useState('');
-    const [value2, setValue2] = useState('');
-    const [value3, setValue3] = useState('');
-    const [value4, setValue4] = useState('');
-    const [value5, setValue5] = useState('');
-    const [value6, setValue6] = useState('');
-    
 
-    useEffect(()=>{
-        setValue1(taskObj.value1)
-        setValue2(taskObj.value2)
-        setValue3(taskObj.value3)
-        setValue4(taskObj.value4)
-        setValue5(taskObj.value5)
-        setValue6(taskObj.value6)
-    },[])
+const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
+
+    const [rteValue, setRteValue] = useState('');
+
+    useEffect(() => {
+        setRteValue(taskObj.rte)
+    }, [])
 
     const handleChange = (e) => {
-        
-        const {name, value} = e.target
-
-        // if(name === "taskName"){
-        //     setValue1(value)
-        // }else{
-        //     setDescription(value)
-        // }
-        
-        switch(name) {
-            case "field1":setValue1(value);break;
-            case "field2":setValue2(value);break;
-            case "field3":setValue3(value);break;
-            case "field4":setValue4(value);break;
-            case "field5":setValue5(value);break;
-            case "field6":setValue6(value);break;
-          }
-
+        setRteValue(e)
     }
 
     const handleUpdate = (e) => {
         e.preventDefault()
         let taskObj = {}
-        taskObj["value1"] = value1
-        taskObj["value2"] = value2
-        taskObj["value3"] = value3
-        taskObj["value4"] = value4
-        taskObj["value5"] = value5
-        taskObj["value6"] = value6
+
+        taskObj["rte"] = rteValue
         updateTask(taskObj)
-        
+
     }
-    
+
     return (
-        <Modal isOpen={modal} toggle={toggle}>
+        <Modal isOpen={modal} toggle={toggle} contentClassName="your-custom-class">
             <ModalHeader toggle={toggle}>Edit Card</ModalHeader>
             <ModalBody>
-            
-                    <div className = "form-group">
-                        <label>field1</label>
-                        <input type="text" className = "form-control" value = {value1} 
-                        onChange = {handleChange} name = "field1"/>
-                    </div>
-                    <div className = "form-group">
-                        <label>field2</label>
-                        <textarea rows = "5" className = "form-control" value = {value2} 
-                        onChange = {handleChange} name = "field2"></textarea>
-                    </div>
-                    <div className = "form-group">
-                        <label>field3</label>
-                        <input type="text" className = "form-control" value = {value3} 
-                        onChange = {handleChange} name = "field3"/>
-                    </div>
-                    <div className = "form-group">
-                        <label>field4</label>
-                        <textarea rows = "5" className = "form-control" value = {value4} 
-                        onChange = {handleChange} name = "field4"></textarea>
-                    </div>
-                    <div className = "form-group">
-                        <label>field5</label>
-                        <input type="text" className = "form-control" value = {value5} 
-                        onChange = {handleChange} name = "field5"/>
-                    </div>
-                    <div className = "form-group">
-                        <label>field6</label>
-                        <textarea rows = "5" className = "form-control" value = {value6} 
-                        onChange = {handleChange} name = "field6"></textarea>
-                    </div>
-                
+
+                <div className="App">
+                    <CKEditor
+                        name="editorName"
+                        editor={ClassicEditor}
+                        data={taskObj.data}
+                        onChange={(event, editor) => {
+                            const dataFromEditor = editor.getData();
+                            handleChange(dataFromEditor);
+                        }}
+                    />
+                </div>
             </ModalBody>
             <ModalFooter>
-            <Button color="primary" onClick={handleUpdate}>Update</Button>{' '}
-            <Button color="secondary" onClick={toggle}>Cancel</Button>
+                <Button color="primary" onClick={handleUpdate}>Update</Button>{' '}
+                <Button color="secondary" onClick={toggle}>Cancel</Button>
             </ModalFooter>
-      </Modal>
+        </Modal>
     );
 };
 

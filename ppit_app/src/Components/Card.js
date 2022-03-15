@@ -33,8 +33,8 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
     }
 
     const updateTask = (obj) => {
-        
-        updateListArray(obj, index)
+        console.log('Checking update : '+obj.rte)
+        updateListArray(obj.rte, index)
         setModal(!modal);
     }
 
@@ -49,16 +49,10 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
             <div className="card-top" style={{ "background-color": colors[index % 5].primaryColor }}></div>
                 <div className="task-holder">
 
-                    <span className="card-header" style={{ "background-color": colors[index % 5].secondaryColor, "borderRadius": "10px" }}>{taskObj.value1}</span>
+                    <span className="card-header" style={{ "background-color": colors[index % 5].secondaryColor, "borderRadius": "10px" }}>Index {index}</span>
 
-                    <p>INDEX: {index}</p>
                     <p>_ID{taskObj._id}</p>
-                    <p className="mt-0">{taskObj.value2}</p>
-                    <p className="mt-0">{taskObj.value3}</p>
-                    <p className="mt-0">{taskObj.value4}</p>
-                    <p className="mt-0">{taskObj.value5}</p>
-                    <p className="mt-0">{taskObj.value6}</p>
-                    
+                    <p className="mt-0" dangerouslySetInnerHTML={ { __html: taskObj.data }}></p>
 
                     <div style={{ "position": "absolute", "right": "20px", "bottom": "3px" }}>
                         <i className="far fa-edit me-3" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={() => setModal(true)}></i>
