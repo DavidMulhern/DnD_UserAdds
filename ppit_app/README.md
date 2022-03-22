@@ -2,14 +2,15 @@ PPIT_SN_DM
 // User Authentication. links https://www.youtube.com/watch?v=Ejg7es3ba2k
 
 // Installs. 
-- npm install express
-- npm install mongoose
+- npm install express (HTTP functionality)
+- npm install mongoose (Database)
 - npm install cors
-- npm install react-bootstrap 
-- npm install react-router-dom@5.2.0 
+- npm install react-bootstrap (Front End Design)
+- npm install react-router-dom@5.2.0 (Page Routing)
 - npm install jsonwebtoken (installed both client and server side) 
 - npm install jwt-decode (token decode) 
 - npm install bcryptjs (Password encryption for DB viewing)
+- npm install --save @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic (Rich text editor)
 
 Mongo DB Login Details: Email: svetlin.nachev@gmail.com Password: ppit2022
 

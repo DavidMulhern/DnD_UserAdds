@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import CreateTaskPopup from '../modals/CreateTaskPopup';
 import axios from 'axios';
 import Card from './Card';
-
 const ToDoList = () => {
 
     //modal represents the popup
@@ -16,54 +15,31 @@ const ToDoList = () => {
         setModal(!modal);
     }
 
-    useEffect(()=>{
-        
+    useEffect(() => {
         axios.get('http://localhost:8080/api')
-        .then((response)=>{
-            setTaskList(response.data);
-
-        })
-        .catch(()=>{
-        });
-     }, [taskList])
-
+            .then((response) => {
+                setTaskList(response.data);
+            })
+            .catch(() => {
+            });
+    })
 
 
+    const deleteTask = (index) => {
+        let tempList = taskList
+        axios.delete('http://localhost:8080/api/task/' + tempList[index]._id)
+            .then(() => {
+                'Task deleted from database'
+            })
+            .catch(() => {
+                'Error from delete Axios call'
+            });
+    }
 
-     const deleteTask = (index)=>
-     {
-         //console.log('The index is '+index)
-         let tempList=taskList
-         //console.log('Searching: '+tempList[index]._id)
-
-         axios.delete('http://localhost:8080/api/task/' + tempList[index]._id)
-                 .then(() => {
-                     'Task deleted from database'
-                 })
-                 .catch(()=>{
-                     'Error from delete Axios call'
-                 });
-
-        //tempList.splice(index,1)
-        //setTaskList(tempList)
-        //console.log(taskList)
-        console.log(index)
-        console.log(index)
-
-         //window.location.reload()
-     }
-     
     //Saves a task to the task array
     const saveTask = (taskObj) => {
-        //let tempList = taskList
-        //push the new item to a temp holder of all existing items
-        //tempList.push(taskObj)
-        // //set local storage to temp holder
-        // localStorage.setItem("taskList", JSON.stringify(tempList))
-        //set state to be equal to temp holder (which has the new item in it) I.E new item being added
-        //setTaskList(tempList)
+
         setModal(false)
-        
         axios({
             url: 'http://localhost:8080/api/save',
             method: 'POST',
@@ -75,27 +51,23 @@ const ToDoList = () => {
             .catch(() => {
                 console.log('Internal server error');
             });
-            //window.location.reload()
+
     }
-    
-    const updateListArray= (obj,index)=>{
+
+    const updateListArray = (obj, index) => {
 
         let tempList = taskList
-        //tempList[index]=obj
-        //setTaskList(tempList)
-        //console.log('updated tasklist: '+taskList[index]._id+"     Index:"+index    )
-        console.log('Card side '+tempList[index]._id)
-        
-        axios.put('http://localhost:8080/api/task/' + tempList[index]._id,obj)
-                 .then(() => {
-                     'Task updated on database'
-                 })
-                 .catch(()=>{
-                     'Error from update Axios call'
-                 });
-                 
-    }
 
+        console.log('ToDoList cards Id: ' + tempList[index]._id)
+        console.log(obj)
+        axios.put('http://localhost:8080/api/task/' + tempList[index]._id, { data: obj })
+            .then(() => {
+                'Task updated on database'
+            })
+            .catch(() => {
+                'Error from update Axios call'
+            });
+    }
 
     return (
         <>
@@ -104,14 +76,8 @@ const ToDoList = () => {
                 <button className="btn btn-primary mt-3" onClick={() => setModal(true)} >Create Task</button>
             </div>
             <div className='task-container'>
-
-                {taskList.map((obj,index) => <Card taskObj = {obj} index = {index} deleteTask = {deleteTask} updateListArray={updateListArray}/>
-
-                    // <li>
-                    //     {obj.value1}, {obj.value2}, {obj.value3}, {obj.value4}, {obj.value5}, {obj.value6}
-                    // </li>
+                {taskList.map((obj, index) => <Card taskObj={obj} index={index} deleteTask={deleteTask} updateListArray={updateListArray} />
                 )}
-                
             </div>
             <CreateTaskPopup toggle={toggle} modal={modal} save={saveTask} />
         </>
@@ -172,7 +138,7 @@ export default ToDoList;
 //         constructor(){
 //             super();
 //         }
-    
+
 //         //State acts as a holder of data which is linked to a specific component
 //         state = {
 //             //Json collection of songs
@@ -190,10 +156,10 @@ export default ToDoList;
 
 //             })
 //             .catch((error)=>{
-    
+
 //                 console.log(error)
 //                 //this.props.history.push('/operationError')
-                
+
 //             });
 //         }
 

@@ -1,0 +1,6 @@
+
+.modal-dialog{
+    position: relative;
+    display: table; /* This is important */ 
+    min-width: 45%;   
+}
