@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
 import EditTask from '../modals/EditTask';
+import ViewTask from '../modals/ViewTask';
 
 const Card = ({taskObj, index, deleteTask, updateListArray}) => {
 
     const [modal, setModal] = useState(false);
-
+    const [modalView, setModalView] = useState(false);
+    
     const colors = [
         {
             primaryColor : "#5D93E1",
@@ -32,6 +34,10 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
         setModal(!modal);
     }
 
+    const toggle2 = () => {
+        setModalView(!modalView);
+    }
+
     const updateTask = (obj) => {
         console.log('Checking update : '+obj.rte)
         updateListArray(obj.rte, index)
@@ -45,21 +51,23 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
     return (
 
         <div className="card-wrapper mr-5">
-            
+
             <div className="card-top" style={{ "background-color": colors[index % 5].primaryColor }}></div>
                 <div className="task-holder">
-
                     <span className="card-header" style={{ "background-color": colors[index % 5].secondaryColor, "borderRadius": "10px" }}>Index {index}</span>
 
                     <p>_ID{taskObj._id}</p>
                     <p className="mt-0" dangerouslySetInnerHTML={ { __html: taskObj.data }}></p>
 
-                    <div style={{ "position": "absolute", "right": "20px", "bottom": "3px" }}>
+                    <div style={{ "position": "absolute", "right": "20px", "bottom": "3px" }}>              
+                        <i className="fas fa-eye" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }}  onClick={() => setModalView(true)}></i>
                         <i className="far fa-edit me-3" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={() => setModal(true)}></i>
                         <i className="fas fa-trash-alt" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={handleDelete}></i>
+
                     </div>
                 </div>
             <EditTask modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/>
+            <ViewTask modal = {modalView} toggle = {toggle2} taskObj = {taskObj}/>
         </div>
 
     );
