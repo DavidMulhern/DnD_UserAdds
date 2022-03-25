@@ -4,6 +4,8 @@ import ToDoList from './Components/ToDoList';
 import Register from './Components/Register';
 import Login from './Components/Login';
 import UserPage from './Components/UserPage';
+import List from './Components/List/List';
+import AppX from './AppX';
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Import navbar and nav for navigation.
@@ -28,7 +30,8 @@ class App extends Component {
               <Nav.Link href="/ToDoList">ToDoList</Nav.Link>
               <Nav.Link href="/Register">Register</Nav.Link>
               <Nav.Link href="/Login">Login</Nav.Link>
-              <Nav.Link href="/UserPage">UserPage</Nav.Link>
+              <Nav.Link href="/UserPage">User Page</Nav.Link>
+              <Nav.Link href="/AppX">User Board</Nav.Link>
             </Nav>
           </Navbar>
           <br />
@@ -39,6 +42,7 @@ class App extends Component {
             <Route path='/ToDoList' component={ToDoList} exact />
             <Route path='/Login' component={Login} exact />
             <Route path='/UserPage' component={UserPage} exact />
+            <Route path='/AppX' component={AppX} exact />
           </Switch>
         </div>
       </Router>

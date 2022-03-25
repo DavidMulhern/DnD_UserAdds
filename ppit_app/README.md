@@ -12,6 +12,15 @@ PPIT_SN_DM
 - npm install bcryptjs (Password encryption for DB viewing)
 - npm install --save @ckeditor/ckeditor5-react @ckeditor/ckeditor5-build-classic (Rich text editor)
 
+24/03
+- npm install @material-ui/core@next
+- npm install @emotion/react
+- npm install @emotion/styled
+- npm install @material-ui/styles
+- npm install @mui/icons-material
+- npm install uuid
+- npm install react-beautiful-dnd
+
 Mongo DB Login Details: Email: svetlin.nachev@gmail.com Password: ppit2022
 
 Videos for TaskList and useState: https://www.youtube.com/watch?v=TZ933D_RB8E&t=0s https://www.youtube.com/watch?v=BkSco__Jpx8
