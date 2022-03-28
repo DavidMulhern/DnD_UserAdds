@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import jwt_decode from "jwt-decode";
 // Importing a history hook.
 import { useHistory } from 'react-router-dom'
+import App from '../App';
 
 const UserPage = () => {
     // Using history to determine where user came from.

@@ -1,22 +1,29 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 // Importing components.
-import List from './Components/List/List'
-import store from './utils/store'
+import List from './List/List'
+import store from '../utils/store'
 // Import the API.
-import StoreApi from './utils/storeApi'
+import StoreApi from '../utils/storeApi'
 // Import UUID
 import {v4 as uuid} from 'uuid'
 // Components
-import InputContainer from './Components/Input/InputContainer'
+import InputContainer from './Input/InputContainer'
 // Styling
 import { makeStyles } from '@material-ui/styles'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+// The below component holds the Side menu and button components.
+import Navigation from './Nav/Navigations'
+
 
 const useStyle = makeStyles((theme) =>({
     root:{
+        // background: 'linear-gradient(to right, pink, pink)',
         display: 'flex',
         minHeight: "100vh",
         overflowY: 'auto',
+    },
+    rButton: {
+         marginTop: '30%'
     },
 }));
 
@@ -144,6 +151,12 @@ export default function AppX() {
         }
     };
 
+    const resetBoard  = () => {
+        console.log("reset pressed!");
+        setData(data);
+        window.location.reload(false);
+    }
+
     return(
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
         <StoreApi.Provider value={{ addMoreCards, addMoreLists, updateListTitle }}>
@@ -153,7 +166,8 @@ export default function AppX() {
                 {/* Making the whole column droppable */}
                 <Droppable droppableId='app' type="list" direction='horizontal'>
                     {(provided)=>(
-                        <div className={classes.root} ref={provided.innerRef} {...provided.droppableProps}>
+                        <div className={classes.root} ref={provided.innerRef} {...provided.droppableProps}
+                        >
                             {/* Mapping through the store.js file, and retrieving the list by their id's, one at a time into list array */}
                             {data.listIds.map((listId, index)=> {
                                 const list = data.lists[listId]
@@ -161,6 +175,9 @@ export default function AppX() {
                             })}
                             <InputContainer type="list" />
                             {provided.placeholder}
+                            {<div className={classes.rButton}>
+                                <button onClick={resetBoard}>Reset Board</button>
+                            </div>}
                         </div>
                     )}
                 </Droppable>
