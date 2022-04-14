@@ -46,57 +46,120 @@ var rteContentSchema = new Schema({
 //Model - used when we want to interact with the database
 var rtePost = mongoose.model("CardContent", rteContentSchema)
 
+
+//Schema for the structure of the documents in the database
+var dndSchema = new Schema({
+    dndContent: Object,
+    created_at: { type: Date, required: true, default: Date.now }
+})
+//Model - used when we want to interact with the database
+var dndPost = mongoose.model("DragAndDropSvetlin", dndSchema)
+
 //----------------------------------------------------HTTP ROUTES----------------------------------------------------------------
 
-
 //Listening POST for /api/songs
-app.post('/api/save', (req, res) => {
-    //Models are responsible for creating and reading documents from the underlying MongoDB database.
-    console.log(req.body)
-    rtePost.create({
-        data: req.body.rte
+app.post('/api/dnd', (req, res) => {
+
+    //Save a new document to the database 
+    dndPost.create({
+        dndContent: req.body
     })
-    //This sends a messaage back to ensure items added to the database are not added
-    //multiple times by mistake
-    res.send('Data Sent to Database!')
+
 })
 
-app.get('/api', (req, res) => {
-    rtePost.find({})
+// //Listening GET returns all cards from server
+app.get('/api/dnd', (req, res) => {
+    //Find the most recently created document
+    dndPost.find({}).sort({created_at:-1})
+        //Return its data
         .then((data) => {
             res.json(data);
         })
+        //If an error occurs, push it
         .catch((error) => {
             res.send(error)
         })
+
+
 });
 
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< WORK IN PROGRESS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// //Listening GET returns all cards from server
+app.get('/testing', (req, res) => {
+    // dndPost.find({_id:'6258375ac6d579fb63827072'})
+    //     .then((data) => {
+    //         //console.log("Checking Server side Order", data)
 
-app.put('/api/task/:id', (req, res) => {
-
-    rtePost.findByIdAndUpdate(req.params.id, req.body, { new: true },
-        (err, data) => {
-            if (err) {
-                res.status(404).send('Sorry, cant find that' + err);
-            } else {
-                res.status(200).send(data);
-            }
-        })
-})
-
-app.delete('/api/task/:id', (req, res) => {
-    rtePost.findByIdAndDelete(req.params.id, (err, data) => {
-        if (err) {
-            res.status(404).send('Sorry, cant find that' + err);
-        } else {
-            res.status(200).send(data);
-        }
+    //         res.json(data);
+    //     })
+    //     .catch((error) => {
+    //         res.send(error)
+    //     })
+    dndPost.updateOne({id:'941c5f1e-41bf-4656-a5b9-9839e607ffda'},{title:'rem'} )
+    .then((data) => {
+    console.log(data);
     })
+    .catch((error) => {
+        console.log("Failure from server meh")
+    })
+        
 });
+//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< WORK IN PROGRESS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
+
+
+// //Listening POST used to save new cards to the server
+// app.post('/api/save', (req, res) => {
+//     //Models are responsible for creating and reading documents from the underlying MongoDB database.
+//     console.log(req.body)
+//     rtePost.create({
+//         data: req.body.rte
+//     })
+//     //This sends a messaage back to ensure items added to the database are not added
+//     //multiple times by mistake
+//     res.send('Data Sent to Database!')
+// })
+
+// app.get('/api', (req, res) => {
+//     rtePost.find({})
+//         .then((data) => {
+//             res.json(data);
+//         })
+//         .catch((error) => {
+//             res.send(error)
+//         })
+// });
+
+
+// app.put('/api/task/:id', (req, res) => {
+
+//     rtePost.findByIdAndUpdate(req.params.id, req.body, { new: true },
+//         (err, data) => {
+//             if (err) {
+//                 res.status(404).send('Sorry, cant find that' + err);
+//             } else {
+//                 res.status(200).send(data);
+//             }
+//         })
+// })
+
+// app.delete('/api/task/:id', (req, res) => {
+//     rtePost.findByIdAndDelete(req.params.id, (err, data) => {
+//         if (err) {
+//             res.status(404).send('Sorry, cant find that' + err);
+//         } else {
+//             res.status(200).send(data);
+//         }
+//     })
+// });
 
 //----------------------------------------------------User Register/Login Post----------------------------------------------------
 
 // User registration post to DB.
+
+
 app.post('/api/register', async (req, res) => {
 
     // Delete log later.

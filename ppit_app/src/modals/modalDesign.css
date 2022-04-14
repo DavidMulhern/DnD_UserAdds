@@ -2,5 +2,9 @@
 .modal-dialog{
     position: relative;
     display: table; /* This is important */ 
-    min-width: 45%;   
+}
+.ck-editor__editable {
+    min-height: 300px;
+    width: 1000px;
+
 }

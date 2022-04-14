@@ -1,49 +1,55 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import EditTask from '../modals/EditTask';
 import ViewTask from '../modals/ViewTask';
 
-const Card = ({taskObj, index, deleteTask, updateListArray}) => {
+
+const Card = ({ taskObj, index, deleteTask, updateListArray, cardId }) => {
 
     const [modal, setModal] = useState(false);
     const [modalView, setModalView] = useState(false);
-    
+
+        //Color properties for newly created cards. Gives a different color to each newly created one
     const colors = [
         {
-            primaryColor : "#5D93E1",
-            secondaryColor : "#ECF3FC"
+            primaryColor: "#5D93E1",
+            secondaryColor: "#ECF3FC"
         },
         {
-            primaryColor : "#F9D288",
-            secondaryColor : "#FEFAF1"
+            primaryColor: "#F9D288",
+            secondaryColor: "#FEFAF1"
         },
         {
-            primaryColor : "#5DC250",
-            secondaryColor : "#F2FAF1"
+            primaryColor: "#5DC250",
+            secondaryColor: "#F2FAF1"
         },
         {
-            primaryColor : "#F48687",
-            secondaryColor : "#FDF1F1"
+            primaryColor: "#F48687",
+            secondaryColor: "#FDF1F1"
         },
         {
-            primaryColor : "#B964F7",
-            secondaryColor : "#F3F0FD"
+            primaryColor: "#B964F7",
+            secondaryColor: "#F3F0FD"
         }
     ]
 
+    //Handle opening/closing edit modal
     const toggle = () => {
         setModal(!modal);
     }
 
+    //Handle opening/closing view modal
     const toggle2 = () => {
         setModalView(!modalView);
     }
 
+    //Handles updating an existing cards data
     const updateTask = (obj) => {
-        console.log('Checking update : '+obj.rte)
+
         updateListArray(obj.rte, index)
         setModal(!modal);
     }
 
+    //Handles the deletion of an existing card
     const handleDelete = () => {
         deleteTask(index)
     }
@@ -51,25 +57,24 @@ const Card = ({taskObj, index, deleteTask, updateListArray}) => {
     return (
 
         <div className="card-wrapper mr-5">
-
             <div className="card-top" style={{ "background-color": colors[index % 5].primaryColor }}></div>
-                <div className="task-holder">
-                    <span className="card-header" style={{ "background-color": colors[index % 5].secondaryColor, "borderRadius": "10px" }}>Index {index}</span>
+            <div className="task-holder" style={{ 'overflow-wrap': 'break-word' ,"overflow":"hidden"}} >
 
-                    <p>_ID{taskObj._id}</p>
-                    <p className="mt-0" dangerouslySetInnerHTML={ { __html: taskObj.data }}></p>
+                {/* This is the content/text of the cards */}
+                <p className="mt-0" dangerouslySetInnerHTML={{ __html: cardId }}></p>
+                {/* This is the card Ids */}
+                <p className="mt-0" dangerouslySetInnerHTML={{ __html: taskObj }}></p>
 
-                    <div style={{ "position": "absolute", "right": "20px", "bottom": "3px" }}>              
-                        <i className="fas fa-eye" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }}  onClick={() => setModalView(true)}></i>
-                        <i className="far fa-edit me-3" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={() => setModal(true)}></i>
-                        <i className="fas fa-trash-alt" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={handleDelete}></i>
+                {/*These are the buttons per card */}
+                <i className="fas fa-trash-alt" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer"}} onClick={handleDelete}></i>
+                <i className="far fa-edit me-3" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={() => setModal(true)}></i>
+                <i className="fas fa-eye" style={{ "color": colors[index % 5].primaryColor, "cursor": "pointer" }} onClick={() => setModalView(true)}></i>
+            </div>
 
-                    </div>
-                </div>
-            <EditTask modal = {modal} toggle = {toggle} updateTask = {updateTask} taskObj = {taskObj}/>
-            <ViewTask modal = {modalView} toggle = {toggle2} taskObj = {taskObj}/>
+            {/* Modals which appear on screen only once triggered */}
+            <EditTask modal={modal} toggle={toggle} updateTask={updateTask} taskObj={taskObj} />
+            <ViewTask modal={modalView} toggle={toggle2} taskObj={taskObj} />
         </div>
-
     );
 };
 

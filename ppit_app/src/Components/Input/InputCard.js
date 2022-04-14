@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/styles'
 import ClearIcon from '@mui/icons-material/Clear';
 import storeApi from '../../utils/storeApi';
 
+import CreateTaskPopup from '../../modals/CreateTaskPopup';
+
 
 // Using styles from the material-ui lib.
 const useStyle = makeStyles((theme) => ({
@@ -28,6 +30,8 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
+
+
 // This function is called when user clicks to add a card. It gets passed the list id.
 export default function InputCard({ setOpen, listId, type }) {
     const classes = useStyle();
@@ -39,15 +43,12 @@ export default function InputCard({ setOpen, listId, type }) {
     const handleOnChange = (e) => {
         setTitle(e.target.value)
     };
+
+    
     const handleBtnConfirm = () => {
         if(type === 'card')
         {
-            // call the function and pass the title (contents) and the id
-            addMoreCards(title, listId);
-            // Card has been added, clear entry field.
-            setTitle("");
-            // close the window when done
-            setOpen(false);
+            setModal(true)
         }
         // Creat a list.
         else{
@@ -56,6 +57,14 @@ export default function InputCard({ setOpen, listId, type }) {
             setOpen(false);
         }
     };
+
+
+    //modal represents the popup
+    const [modal, setModal] = useState(false);
+    //toggle represents the button to activate the modal popup
+    const toggle = () => {
+        setModal(!modal);
+    }
 
     return(
         <div>
@@ -73,19 +82,26 @@ export default function InputCard({ setOpen, listId, type }) {
                     // Set the value
                     value={title}
                     // if else to determine the place holder (list or card)
-                    placeholder={type === 'card'?"Enter title of card...":"Enter List title..."}
+                    placeholder={type === 'card'?"":"Enter List title..."}
                     />
                 </Paper>
             </div>
+
             {/* The below setOpens will collapse the window when user clicks add or cancel buttons. */}
             <div className={classes.confirm}> 
+{/* ------------------------------------------------------------------------------------------------------------------------- */}
+                <br></br>
                 <Button className={classes.btnConfirm} onClick={handleBtnConfirm}>
-                    {type === 'card'?"Add Card":"Add List"}
+                {type === 'card'?"(Popup)Add Card ":"Add List "}
                 </Button>
+{/* ------------------------------------------------------------------------------------------------------------------------- */}
                 <IconButton onClick={()=> setOpen(false)}>
                     <ClearIcon />
                 </IconButton>
+                <CreateTaskPopup toggle={toggle} modal={modal} addMoreCards={addMoreCards} setTitle={setTitle} listId={listId}/*save={saveTask}*/ />
+
             </div>
         </div>
     )
 }
+
