@@ -5,12 +5,14 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ViewTask = ({ modal, toggle, taskObj }) => {
 
+    //Renders a read only version of the rich text editor.
     return (
         <Modal isOpen={modal} toggle={toggle} contentClassName="your-custom-class">
             <ModalHeader toggle={toggle}>VIEW CARD</ModalHeader>
             <ModalBody>
 
                 <div className="App">
+                    {/* Rich Text Editor configuration */}
                     <CKEditor
                         disabled="true"
                         removePlugins={['toolbar']}
@@ -25,7 +27,7 @@ const ViewTask = ({ modal, toggle, taskObj }) => {
                         }
                         name="editorName"
                         editor={ClassicEditor}
-                        data={taskObj.data}
+                        data={taskObj}
                     />
                 </div>
             </ModalBody>

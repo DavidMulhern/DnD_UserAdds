@@ -2,34 +2,38 @@ import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-
+import './modalDesign.css';
 
 const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
 
     const [rteValue, setRteValue] = useState('');
 
+    //Updates the state of the rich text editor
     useEffect(() => {
-        setRteValue(taskObj.rte)
-    }, [])
+        setRteValue(taskObj.rte)}, [])
 
+    //Updates the input box as the user is typing
     const handleChange = (e) => {
         setRteValue(e)
     }
 
+    //Handles when the user wants to save an update
     const handleUpdate = (e) => {
         e.preventDefault()
         let taskObj = {}
-
+        
         taskObj["rte"] = rteValue
         updateTask(taskObj)
     }
 
-   return (
+    //Renders an editable version of the rich text editor.
+    return (
         <Modal isOpen={modal} toggle={toggle} contentClassName="your-custom-class">
             <ModalHeader toggle={toggle}>Edit Card</ModalHeader>
             <ModalBody>
 
                 <div className="App">
+                    {/* Rich Text Editor configuration */}
                     <CKEditor
                         config={
                             {
@@ -39,10 +43,9 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
                                 }
                             }
                         }
-
                         name="editorName"
                         editor={ClassicEditor}
-                        data={taskObj.data}
+                        data={taskObj}
                         onChange={(event, editor) => {
                             const dataFromEditor = editor.getData();
                             handleChange(dataFromEditor);

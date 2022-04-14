@@ -30,6 +30,7 @@ export default function List({ list, index }){
     const classes = useStyle();
     // Making the whole column draggable.
     return(
+        <>
         <Draggable draggableId={list.id} index={index}>
             {(provided)=>(
                 <div {...provided.draggableProps} ref={provided.innerRef}>
@@ -37,6 +38,7 @@ export default function List({ list, index }){
                         <CssBaseline />
                         {/* Looping through list, getting titles. */}
                         <Title title={list.title} listId={list.id} />
+                        <div>{list.id}</div>
                         {/* React DnD Droppable area. */}
                         {/* Needs to be wrapped in a div with a reference */}
                         <Droppable droppableId={list.id}>
@@ -54,6 +56,9 @@ export default function List({ list, index }){
                     </Paper>
                 </div>
             )}
+            
         </Draggable>
+        
+        </>
     )
 }
