@@ -14,6 +14,8 @@ import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 //HTTP 
 import axios from 'axios';
 
+// Global variable only used client side.
+var current
 
 // The below component holds the Side menu and button components.
 const useStyle = makeStyles((theme) => ({
@@ -24,31 +26,14 @@ const useStyle = makeStyles((theme) => ({
         overflowY: 'auto',
     },
     rButton: {
-        marginTop: '30%'
+        marginTop: '2%',
+        marginLeft: '2%'
     },
 }));
 
 export default function AppX() {
     // Adding state.
     const [data, setData] = useState(store)
-
-
-    //Use effect called every time there is a change to state. Performs GET for all cards and lists
-    //on MongoDB when called. References only the most recent document in MongoDB
-    useEffect(() => {
-        //console.log("Use Effect Triggeredd")
-
-        axios.get('http://localhost:8080/api/dnd')
-            .then((response) => {
-                //console.log(response.data[0].dndContent)
-                setData(response.data[0].dndContent);
-            })
-            .catch(() => {
-            });
-    }, [data])
-
-
-
     // Styling var.
     const classes = useStyle();
     // Function to add more cards. Need to use UUID for this
@@ -73,9 +58,10 @@ export default function AppX() {
                 [listId]: list,
             },
         };
-       PostToDB(newState)
+        setData(newState)
+        // PostToDB(newState)
+        current = newState
     };
-
 
     // Function to add more lists.
     const addMoreLists = (title) => {
@@ -94,7 +80,9 @@ export default function AppX() {
                 [newListId]: newList
             },
         };
-        PostToDB(newState)
+        setData(newState)
+        // PostToDB(newState)
+        current = newState
     };
 
     // Function to change list title.
@@ -112,7 +100,8 @@ export default function AppX() {
             },
         };
         setData(newState);
-        PostToDB(data);
+        // PostToDB(data);
+        current = newState
     }
 
     //Function to handle drag and drop logic
@@ -152,7 +141,9 @@ export default function AppX() {
                     [sourceList.id]: destinationList,
                 },
             };
-            PostToDB(newState);
+            setData(newState)
+            // PostToDB(newState)
+            current = newState
         }
 
         // A move has happened into a different column.
@@ -168,11 +159,10 @@ export default function AppX() {
                     [destinationList.id]: destinationList,
                 },
             };
-            PostToDB(newState);
-        }
-
-        
-        
+            setData(newState)
+            // PostToDB(newState)
+            current = newState
+        }  
     };
 
     //On screen button, dont think it really does anything anymore
@@ -181,6 +171,26 @@ export default function AppX() {
         setData(data);
         window.location.reload(false);
     }
+
+    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
+
+    const saveBoard = () => {
+        PostToDB(current)
+    }
+
+    const loadBoard = () => {
+
+        axios.get('http://localhost:8080/api/dnd')
+            .then((response) => {
+                //console.log(response.data[0].dndContent)
+                setData(response.data[0].dndContent);
+                console.log("Something happened")
+            })
+            .catch(() => {
+            });
+    }
+
+    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
     //POST method being called in other methods on this page. Used to push changes up to the database
     function PostToDB(newState) {
@@ -220,6 +230,12 @@ export default function AppX() {
     return (
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
         <StoreApi.Provider value={{ addMoreCards, addMoreLists, updateListTitle }}>
+            <div className={classes.rButton}>
+                <button onClick={saveBoard}>Save Table</button>
+                <button onClick={loadBoard}>Load Table</button>
+                <button onClick={resetBoard}>Reset Board</button>
+                <button onClick={checkConsole}>Check Console</button>
+            </div>
             {/* Using react DnD. Declare this area and drag and drop */}
             {/*onDragEnd is an event that will call a function, we need to note changes once dragged to state*/}
             <DragDropContext onDragEnd={onDragEnd}>
@@ -235,12 +251,6 @@ export default function AppX() {
                             })}
                             <InputContainer type="list" />
                             {provided.placeholder}
-                            {<div className={classes.rButton}>
-                                <button onClick={resetBoard}>Reset Board</button>
-                            </div>}
-                            {<div className={classes.rButton}>
-                                <button onClick={checkConsole}>Check Console</button>
-                            </div>}
                         </div>
                     )}
                 </Droppable>
