@@ -1,12 +1,26 @@
 // Importing use state
 import userEvent from '@testing-library/user-event';
 import React, {useState} from 'react';
+// Styling
+import { makeStyles } from '@material-ui/styles'
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        minHeight: "100vh",
+        overflowY: 'auto',
+        fontFamily:'Nunito',
+        justifyContent:'center',
+        marginLeft: '15%'
+    },
+}));
 
 const Login = () => {
-    
     // State variables.
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    // Styling var.
+    const classes = useStyle();
 
     // Front end to back end function. Making it asynchronus and wait for a repsonse.
     async function loginUser(event) {
@@ -41,22 +55,23 @@ const Login = () => {
     }
 
     return(
-        <div>
-            <h1>Login</h1>
-            <form onSubmit={loginUser}>
+        <div className={classes.root}>
+            <form onSubmit={loginUser} className={classes.bg}>
+                <p><h1>Login</h1></p>
+                <hr />
                 <label>Email: </label>
-                <input value={email}
+                <p><input value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type = "text"
                 placeholer="Email" 
-                />
+                /></p>
                 <br />
                 <label>Password: </label>
-                <input value={password}
+                <p><input value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type = "password"
                 placeholer="Password" 
-                />
+                /></p>
                 <br />
                 <input type="submit" value="Login"/>
             </form>

@@ -2,11 +2,26 @@
 import React, {useState} from 'react';
 // Importing a history hook.
 import { useHistory } from 'react-router-dom'
+// Styling
+import { makeStyles } from '@material-ui/styles'
+
+const useStyle = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        minHeight: "100vh",
+        overflowY: 'auto',
+        fontFamily:'Nunito',
+        justifyContent:'center',
+        marginLeft: '15%'
+    },
+}));
 
 const Register = () => {
 
     // History hook.
     const history = useHistory()
+    // Styling var.
+    const classes = useStyle();
     
     // State variables.
     const [name, setName] = useState('');
@@ -40,29 +55,30 @@ const Register = () => {
     }
 
     return(
-        <div>
-            <h1>Register</h1>
+        <div className={classes.root}>
             <form onSubmit={registerUser}>
+                <p><h1>Register</h1></p>
+                <hr />
                 <label>Name: </label>
-                <input value={name}
+                <p><input value={name}
                 onChange={(e) => setName(e.target.value)}
                 type = "text"
                 placeholer="Name" 
-                />
+                /></p>
                 <br />
                 <label>Email: </label>
-                <input value={email}
+                <p><input value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type = "text"
                 placeholer="Email" 
-                />
+                /></p>
                 <br />
                 <label>Password: </label>
-                <input value={password}
+                <p><input value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 type = "password"
                 placeholer="Password" 
-                />
+                /></p>
                 <br />
                 <input type="submit" value="Register"/>
             </form>

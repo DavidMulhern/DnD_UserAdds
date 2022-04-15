@@ -20,7 +20,6 @@ var current
 // The below component holds the Side menu and button components.
 const useStyle = makeStyles((theme) => ({
     root: {
-        // background: 'linear-gradient(to right, pink, pink)',
         display: 'flex',
         minHeight: "100vh",
         overflowY: 'auto',
@@ -32,6 +31,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function AppX() {
+
     // Adding state.
     const [data, setData] = useState(store)
     // Styling var.

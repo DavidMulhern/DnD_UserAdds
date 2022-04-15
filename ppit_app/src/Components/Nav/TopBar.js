@@ -7,7 +7,7 @@ import { AppBar, Toolbar, Button } from "@material-ui/core";
 const useStyles = makeStyles(()=> ({
     AppBar: {
         background: 'linear-gradient(45deg, #0DCAF0 30%, #0DCAF0 90%)',
-        marginTop: '-2%',
+        marginTop: '2%',
     },
     title: {
         flexGrow: 1,

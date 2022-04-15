@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-// import { makeStyles } from "@material-ui/styles";
 import Navibar from "./Components/Nav/Navibar";
 import AppX from "./Components/AppX";
 import Navigations from "./Components/Nav/Navigations";
-
-//const useStyles = makeStyles(()=> ({}));
-
+import Register from "./Components/Register";
 
 export default function App() {
-  //const classes = useStyles();
   // Image state.
-  const [backgroundImage, setBackgroundImage] = useState('pink');
+  const [backgroundImage, setBackgroundImage] = useState(`url(${process.env.PUBLIC_URL + "/assets/office.jpg"})`);
   return (
     <div
       style={{
@@ -20,9 +16,9 @@ export default function App() {
         backgroundSize: 'cover',
       }}
     >
+      <Navigations setBackgroundImage={setBackgroundImage}/>
       <Navibar />
-      <Navigations setBackgroundImage={setBackgroundImage}/> 
-      <AppX />
+      {/* <AppX /> */}
     </div>
   )
 }

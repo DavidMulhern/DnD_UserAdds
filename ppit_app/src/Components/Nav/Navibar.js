@@ -12,6 +12,8 @@ import { Navbar, Nav } from 'react-bootstrap'
 import React, { Component } from 'react';
 // import react router DOM for routing. Alias for BrowserRouter for easier use.
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import AppX from '../AppX';
+import LandingPage from '../LandingPage';
 
 // Need to place into classes/functions so app can render different pages/Components.
 class Navibar extends Component {
@@ -20,17 +22,20 @@ class Navibar extends Component {
       <Router>
         <div className="App">
           <Navbar bg="info" variant="dark">
-            <Navbar.Brand href="/">User Board</Navbar.Brand>
+            <Navbar.Brand href="/">KanSchan</Navbar.Brand>
             <Nav className="me-auto">
-              <Nav.Link href="/ToDoList">ToDoList</Nav.Link>
+              <Nav.Link href="/AppX">Board</Nav.Link>
+              {/* <Nav.Link href="/ToDoList">ToDoList</Nav.Link> */}
               <Nav.Link href="/Register">Register</Nav.Link>
               <Nav.Link href="/Login">Login</Nav.Link>
-              <Nav.Link href="/UserPage">User Page</Nav.Link>
+              {/* <Nav.Link href="/UserPage">User Page</Nav.Link> */}
             </Nav>
           </Navbar>
           <br />
           
           <Switch>
+            <Route path='/' component={LandingPage} exact />
+            <Route path='/AppX' component={AppX} exact />
             <Route path='/Register' component={Register} exact />
             <Route path='/ToDoList' component={ToDoList} exact />
             <Route path='/Login' component={Login} exact />
