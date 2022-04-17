@@ -37,6 +37,9 @@
   }
 }
  */
+
+
+
 .header{
   height: 200px;
   width: 100%;
@@ -49,7 +52,6 @@
   width: 300px;
   box-shadow: 0px 3px 50px #A5A5A5;
 }
-
 .card-wrapper{
   width: 270px; 
   height: 200px; 
@@ -98,3 +100,4 @@
   padding : 40px 100px;
   
 }
+

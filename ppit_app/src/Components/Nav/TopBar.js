@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/styles";
 import { AppBar, Toolbar, Button } from "@material-ui/core";
 
-// This component is just a div that sits undereath the navbad in user board section.
+// This component is just a div that sits undereath the navbar in user board section.
 // It's used to contain a button which in turn caters for the side bar drawer.
 
 const useStyles = makeStyles(()=> ({

@@ -13,6 +13,8 @@ import { makeStyles } from '@material-ui/styles'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 //HTTP 
 import axios from 'axios';
+import '../modals/modalDesign.css';
+import { Button } from 'reactstrap'
 
 // Global variable only used client side.
 var current
@@ -32,10 +34,27 @@ const useStyle = makeStyles((theme) => ({
 
 export default function AppX() {
 
+    // useEffect(() => {
+    //     console.log("hit")
+    //     // Update the document title using the browser API
+    //     //document.title = `You clicked ${count} times`;
+    //     axios.get('http://localhost:8080/api/dnd')
+    //     .then((response) => {
+    //         //console.log(response.data[0].dndContent)
+    //         setData(response.data[0].dndContent);
+    //         console.log("Something happened")
+    //     })
+    //     .catch(() => {
+    //     });
+
+    //   },[]);
+
+
     // Adding state.
     const [data, setData] = useState(store)
     // Styling var.
     const classes = useStyle();
+
     // Function to add more cards. Need to use UUID for this
     const addMoreCards = (title, listId) => {
         // Generate a unique ID 
@@ -162,8 +181,66 @@ export default function AppX() {
             setData(newState)
             // PostToDB(newState)
             current = newState
-        }  
+        }
     };
+
+    //Method to Delete a card from the local data
+    const listDelete = (listId) => {
+        console.log("In appX - ListDelete() method")
+        // var listCount = data.listIds.length
+        // var listsArray = data.lists
+
+        // console.log(data.lists)
+        // for (var i = 0; i < listCount; i++) {
+        //      if (data.lists[listId]) {
+
+        //         console.log("Pre: ",data.lists)
+        //         var check = delete data.lists[listId]
+        //         console.log("Check: ",check)
+               
+        //         // const newState = {
+        //         //     ...data
+        //         // };
+        //         // setData(newState)
+        //         // current = newState
+        //      }
+        //     console.log("After if")
+        //     console.log("Post: ",data.lists)
+        // }
+    }
+
+    //Method to Delete a card from the local data
+    const cardDelete = (e, cardId, listId) => {
+        var cardArray = data.lists[listId].cards
+        for (var i = 0; i < cardArray.length; i++) {
+            if (cardArray[i].id == cardId) {
+                cardArray.splice(i, 1)
+                const newState = {
+                    ...data
+                };
+                setData(newState)
+                current = newState
+            }
+        }
+    }
+
+    //Method to update the content within a card from the local data
+    const cardUpdate = (obj, index, cardId, listId) => {
+        var cardArray = data.lists[listId].cards
+        for (var i = 0; i < cardArray.length; i++) {
+            if (cardArray[i].id == cardId) {
+                cardArray[i].title = obj
+                const newState = {
+                    ...data
+                };
+                setData(newState)
+                current = newState
+            }
+        }
+    }
+
+
+    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
     //On screen button, dont think it really does anything anymore
     const resetBoard = () => {
@@ -172,14 +249,13 @@ export default function AppX() {
         window.location.reload(false);
     }
 
-    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
-
+    //Reset the board 
     const saveBoard = () => {
         PostToDB(current)
     }
 
+    //Load the current local data
     const loadBoard = () => {
-
         axios.get('http://localhost:8080/api/dnd')
             .then((response) => {
                 //console.log(response.data[0].dndContent)
@@ -189,8 +265,6 @@ export default function AppX() {
             .catch(() => {
             });
     }
-
-    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
     //POST method being called in other methods on this page. Used to push changes up to the database
     function PostToDB(newState) {
@@ -206,35 +280,16 @@ export default function AppX() {
                 console.log(error);
             });
     }
+    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
-    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<On screen button being used for testing related to persistance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    const checkConsole = () => {
-        axios({
-            url: 'http://localhost:8080/testing',
-            method: 'GET'
-
-        })
-            .then((response) => {
-                console.log('AppX / checkConsole() / .then()');
-
-                console.log(response.data.length)
-
-
-            })
-            .catch(() => {
-                console.log('AppX / checkConsole() / .catch() ERROR ERROR');
-            });
-    }
-    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<On screen button being used for testing related to persistance >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
     return (
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
         <StoreApi.Provider value={{ addMoreCards, addMoreLists, updateListTitle }}>
             <div className={classes.rButton}>
-                <button onClick={saveBoard}>Save Table</button>
-                <button onClick={loadBoard}>Load Table</button>
-                <button onClick={resetBoard}>Reset Board</button>
-                <button onClick={checkConsole}>Check Console</button>
+                <Button onClick={saveBoard}>Save Table</Button>
+                <Button onClick={loadBoard}>Load Table</Button>
+                <Button onClick={resetBoard}>Reset Board</Button>
             </div>
             {/* Using react DnD. Declare this area and drag and drop */}
             {/*onDragEnd is an event that will call a function, we need to note changes once dragged to state*/}
@@ -247,7 +302,7 @@ export default function AppX() {
                             {/* Mapping through the store.js file, and retrieving the list by their id's, one at a time into list array */}
                             {data.listIds.map((listId, index) => {
                                 const list = data.lists[listId]
-                                return <List list={list} key={listId} index={index} />
+                                return <List list={list} key={listId} index={index} listDelete={listDelete} cardDelete={cardDelete} cardUpdate={cardUpdate} />
                             })}
                             <InputContainer type="list" />
                             {provided.placeholder}

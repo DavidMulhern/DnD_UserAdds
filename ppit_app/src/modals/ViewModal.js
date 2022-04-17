@@ -5,6 +5,12 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const ViewTask = ({ modal, toggle, taskObj }) => {
 
+
+
+
+
+    
+
     //Renders a read only version of the rich text editor.
     return (
         <Modal isOpen={modal} toggle={toggle} contentClassName="your-custom-class">
@@ -21,7 +27,7 @@ const ViewTask = ({ modal, toggle, taskObj }) => {
                                 toolbar: [],
                                 cloudServices: {
                                     uploadUrl: "https://88037.cke-cs.com/easyimage/upload/",
-                                    tokenUrl: "https://88037.cke-cs.com/token/dev/106eb05296cc85fd48dc707a24296dabad703eb299fe21dbf939ca3923b5?limit=10"
+                                    tokenUrl: "https://88037.cke-cs.com/token/dev/6e01c8623c56aff50aa32641f07587279495e197321c729232e08020e47e?limit=10"
                                 }
                             }
                         }

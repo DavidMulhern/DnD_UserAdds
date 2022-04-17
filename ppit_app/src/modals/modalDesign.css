@@ -1,10 +1,12 @@
 
 .modal-dialog{
     position: relative;
-    display: table; /* This is important */ 
+    display: table;
 }
 .ck-editor__editable {
     min-height: 300px;
     width: 1000px;
-
+}
+.task-holder{
+    max-height: 8cm;
 }

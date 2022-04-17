@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext,useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import storeApi from '../utils/storeApi';
 
+const CreateTaskPopup = ({ modal, toggle, listId }) => {
 
-const CreateTaskPopup = ({ modal, toggle, addMoreCards, setTitle, listId }) => {
     const [rteValue, setRteValue] = useState('');
+    const {addMoreCards} = useContext(storeApi)
 
     //handles updating the text content of a card as its being created
     const handleChange = (e) => {
@@ -14,23 +16,29 @@ const CreateTaskPopup = ({ modal, toggle, addMoreCards, setTitle, listId }) => {
     const handleSave = (e) => {
         let taskObj = {}
         taskObj["rte"] = rteValue
-        // call the function and pass the title (contents) and the id
+        // call the save function and pass the title (contents) and the id
         addMoreCards(rteValue, listId);
-        // Card has been added, clear entry field.
-        setTitle("");
     }
 
     // The Rich text editor is rendered in an editable version to allow the user to enter in the contents 
     // of the new card
     return (
         <Modal isOpen={modal} toggle={toggle}>
-            <ModalHeader toggle={toggle}>field1</ModalHeader>
+            <ModalHeader toggle={toggle}>Create A New Card</ModalHeader>
             <ModalBody>
                 <div className="App">
-                    <h2>Create Card</h2>
+
 
                     {/* Configuration properties for the rich text editor */}
                     <CKEditor
+                        config={
+                            {
+                                cloudServices: {
+                                    uploadUrl: "https://88037.cke-cs.com/easyimage/upload/",
+                                    tokenUrl: "https://88037.cke-cs.com/token/dev/6e01c8623c56aff50aa32641f07587279495e197321c729232e08020e47e?limit=10"
+                                }
+                            }
+                        }
                         name="editorName"
                         editor={ClassicEditor}
                         data=""

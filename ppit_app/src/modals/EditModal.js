@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
+import { CKEditor, ExportPdf } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import './modalDesign.css';
+// import './modalDesign.css';
+
+
 
 const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
 
@@ -10,7 +12,8 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
 
     //Updates the state of the rich text editor
     useEffect(() => {
-        setRteValue(taskObj.rte)}, [])
+        setRteValue(taskObj.rte)
+    }, [])
 
     //Updates the input box as the user is typing
     const handleChange = (e) => {
@@ -21,10 +24,13 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
     const handleUpdate = (e) => {
         e.preventDefault()
         let taskObj = {}
-        
+
         taskObj["rte"] = rteValue
+        //console.log("TaskObj in edit task: ",taskObj)
         updateTask(taskObj)
     }
+
+    
 
     //Renders an editable version of the rich text editor.
     return (
@@ -37,10 +43,12 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
                     <CKEditor
                         config={
                             {
+
                                 cloudServices: {
                                     uploadUrl: "https://88037.cke-cs.com/easyimage/upload/",
-                                    tokenUrl: "https://88037.cke-cs.com/token/dev/106eb05296cc85fd48dc707a24296dabad703eb299fe21dbf939ca3923b5?limit=10"
-                                }
+                                    tokenUrl: "https://88037.cke-cs.com/token/dev/6e01c8623c56aff50aa32641f07587279495e197321c729232e08020e47e?limit=10"
+                                },
+ 
                             }
                         }
                         name="editorName"
@@ -55,7 +63,7 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" onClick={handleUpdate}>Update</Button>{' '}
-                <Button color="secondary" onClick={toggle}>Cancel</Button>
+                <Button color="secondary" onClick={toggle}> </Button>
             </ModalFooter>
         </Modal>
     );
