@@ -1,8 +1,8 @@
 // Importing functional components.
-import ToDoList from '../ToDoList';
 import Register from '../Register';
 import Login from '../Login';
 import UserPage from '../UserPage';
+import WhiteBoard from '../WhiteBoard/WhiteBoard';
 
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -29,6 +29,7 @@ class Navibar extends Component {
               <Nav.Link href="/Register">Register</Nav.Link>
               <Nav.Link href="/Login">Login</Nav.Link>
               {/* <Nav.Link href="/UserPage">User Page</Nav.Link> */}
+              <Nav.Link href="/WhiteBoard">WhiteBoard</Nav.Link>
             </Nav>
           </Navbar>
           <br />
@@ -37,9 +38,9 @@ class Navibar extends Component {
             <Route path='/' component={LandingPage} exact />
             <Route path='/AppX' component={AppX} exact />
             <Route path='/Register' component={Register} exact />
-            <Route path='/ToDoList' component={ToDoList} exact />
             <Route path='/Login' component={Login} exact />
             <Route path='/UserPage' component={UserPage} exact />
+            <Route path='/WhiteBoard' component={WhiteBoard} exact />
           </Switch>
         </div>
       </Router>

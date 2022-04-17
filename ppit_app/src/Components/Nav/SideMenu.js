@@ -23,7 +23,7 @@ const useStyles = makeStyles(() =>({
         width: '45%',
         height: '90px',
         backgroundColor: '',
-        borderRadius: '9px',
+        borderRadius: '15px',
         marginBottom: '15px'
     },
 }));
