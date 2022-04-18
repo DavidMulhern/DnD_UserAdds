@@ -47,7 +47,7 @@ const Login = () => {
             // Logins successful, store the token!
             localStorage.setItem('token', data.user)
             alert('Login Successful')
-            window.location.href = '/UserPage'
+            window.location.href = '/AppX'
         }
         else{
             alert('Please check username and password')

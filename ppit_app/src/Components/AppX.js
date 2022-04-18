@@ -11,10 +11,13 @@ import InputContainer from './Input/InputContainer'
 // Styling
 import { makeStyles } from '@material-ui/styles'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-//HTTP 
-import axios from 'axios';
+// CSS
 import '../modals/modalDesign.css';
 import { Button } from 'reactstrap'
+// jwt decode imported
+import jwt_decode from "jwt-decode";
+// Importing a history hook.
+import { useHistory } from 'react-router-dom';
 
 // Global variable only used client side.
 var current
@@ -33,33 +36,37 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function AppX() {
-
-    // useEffect(() => {
-    //     console.log("hit")
-    //     // Update the document title using the browser API
-    //     //document.title = `You clicked ${count} times`;
-    //     axios.get('http://localhost:8080/api/dnd')
-    //     .then((response) => {
-    //         //console.log(response.data[0].dndContent)
-    //         setData(response.data[0].dndContent);
-    //         console.log("Something happened")
-    //     })
-    //     .catch(() => {
-    //     });
-
-    //   },[]);
-
-
     // Adding state.
     const [data, setData] = useState(store)
+    const [clean, setClean] = useState(store)
     // Styling var.
     const classes = useStyle();
+    // Using history to determine where user came from.
+    const history = useHistory()
+    // Performing a check on user and token(s) when component mounts.
+    useEffect(() => {
+        // Getting token from local storage.
+        const token = localStorage.getItem('token')
+        if(token){
+            // If found, decode.
+            const user = jwt_decode(token)
+            // If the user does not exist, remove the token.
+            if(!user){
+                localStorage.removeItem('token')
+                history.replace('/login')
+            }
+            else{
+                // If user is found, notify back end and populate code.
+                console.log("Boo mfer")
+                // loadBoard() 
+            }
+        }
+    }, []) 
 
     // Function to add more cards. Need to use UUID for this
     const addMoreCards = (title, listId) => {
         // Generate a unique ID 
         const newCardId = uuid();
-        console.log('New card Id: ', newCardId)
         // Create a new card
         const newCard = {
             id: newCardId,
@@ -78,7 +85,6 @@ export default function AppX() {
             },
         };
         setData(newState)
-        // PostToDB(newState)
         current = newState
     };
 
@@ -100,7 +106,6 @@ export default function AppX() {
             },
         };
         setData(newState)
-        // PostToDB(newState)
         current = newState
     };
 
@@ -119,7 +124,6 @@ export default function AppX() {
             },
         };
         setData(newState);
-        // PostToDB(data);
         current = newState
     }
 
@@ -161,7 +165,6 @@ export default function AppX() {
                 },
             };
             setData(newState)
-            // PostToDB(newState)
             current = newState
         }
 
@@ -179,7 +182,6 @@ export default function AppX() {
                 },
             };
             setData(newState)
-            // PostToDB(newState)
             current = newState
         }
     };
@@ -235,52 +237,67 @@ export default function AppX() {
 
     //On screen button, dont think it really does anything anymore
     const resetBoard = () => {
-        console.log("reset pressed!");
-        setData(data);
+        setData(clean);
         window.location.reload(false);
     }
-
-    //Reset the board 
-    const saveBoard = () => {
-        PostToDB(current)
+    
+    async function loadBoard() {
+        console.log("MFER CLICKED")
+        const req = await fetch('http://localhost:8080/api/quote', {
+        // Include this in the header
+        headers: {
+            'x-access-token': localStorage.getItem('token'),
+        },
+    })
+    const data = await req.json()
+        // Populate the quote variable if the data status returns 'ok'.
+        if(data.status === 'ok'){
+            // setQuote(data.quote)
+            let obj = JSON.parse(data.quote)
+            setData(obj);
+            current = obj
+        }
+        else{
+            alert(data.error)
+        }
     }
-
-    //Load the current local data
-    const loadBoard = () => {
-        axios.get('http://localhost:8080/api/dnd')
-            .then((response) => {
-                //console.log(response.data[0].dndContent)
-                setData(response.data[0].dndContent);
-                console.log("Something happened")
+    
+        // Update quote function. Update the backend.
+        async function updateBoard(){
+            // Stringify the current board. Ready to send to DB
+            var boardDetails = JSON.stringify(current)
+            // event.preventDefault()
+            const req = await fetch('http://localhost:8080/api/quote', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('token'),
+                },
+                // Stringify the body for the post. JSON.stringify()
+                body: JSON.stringify({
+                    quote: boardDetails,
+                }),
             })
-            .catch(() => {
-            });
-    }
+            const data = await req.json()
+            // Populate the quote variable if the data status returns 'ok'.
+            if(data.status === 'ok'){
+                setData(current)
+            }
+            else{
+                alert(data.error)
+            }
+        }
 
-    //POST method being called in other methods on this page. Used to push changes up to the database
-    function PostToDB(newState) {
-        axios({
-            url: 'http://localhost:8080/api/dnd',
-            method: 'POST',
-            data: newState
-        })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    }
     // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
 
     return (
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
         <StoreApi.Provider value={{ addMoreCards, addMoreLists, updateListTitle }}>
-            <div className={classes.rButton}>
-                <Button onClick={saveBoard}>Save Table</Button>
-                <Button onClick={loadBoard}>Load Table</Button>
-                <Button onClick={resetBoard}>Reset Board</Button>
+            <div >
+                <Button onClick={updateBoard} className={classes.rButton}>Save Table</Button>
+                <Button onClick={loadBoard} className={classes.rButton}>Load Table</Button>
+                <Button onClick={resetBoard} className={classes.rButton}>Reset Board</Button>
             </div>
             {/* Using react DnD. Declare this area and drag and drop */}
             {/*onDragEnd is an event that will call a function, we need to note changes once dragged to state*/}

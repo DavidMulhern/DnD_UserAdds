@@ -14,7 +14,7 @@ const useStyle = makeStyles((theme) => ({
         marginTop: '25px',
     },
     addCard: {
-        padding: '10px',
+        paddingTop: '10px',
         "&:hover": {
             background: 'linear-gradient(to right, white, gray)',
         }

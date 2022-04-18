@@ -85,9 +85,6 @@ export default function Cardx({ key,card, index, listId, cardDelete, cardUpdate 
                             <div className="card-wrapper mr-5">
                                 <div className="card-top" style={{ "background-color": colors[index % 5].primaryColor }}></div>
                                 <div className="task-holder" style={{ 'overflow-wrap': 'break-word', "overflow": "hidden" }} >
-
-                                    {/* This is the content/text of the cards */}
-                                    <p className="mt-0" dangerouslySetInnerHTML={{ __html: card.id }}></p>
                                     {/* This is the card Ids */}
                                     <p className="mt-0" dangerouslySetInnerHTML={{ __html: card.title }}></p>
                                 </div>

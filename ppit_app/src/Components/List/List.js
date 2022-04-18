@@ -41,8 +41,6 @@ export default function List({ list, index,cardDelete, cardUpdate, listDelete })
                         <CssBaseline />
                         {/* Looping through list, getting titles. */}
                         <Title title={list.title} listId={list.id} index={index} listDelete={listDelete} />
-
-                        <div>{list.id}</div>
                         {/* React DnD Droppable area. */}
                         {/* Needs to be wrapped in a div with a reference */}
                         <Droppable droppableId={list.id}>

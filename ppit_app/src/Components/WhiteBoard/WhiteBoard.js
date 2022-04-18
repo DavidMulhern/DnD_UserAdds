@@ -71,7 +71,7 @@ export default function WhiteBoard() {
         const link = document.createElement('a');
         link.href = blobURL;
         link.download = "image.png";
-        console.log(blobURL)
+        //console.log(localImg.toString())
         link.click();
     }
 

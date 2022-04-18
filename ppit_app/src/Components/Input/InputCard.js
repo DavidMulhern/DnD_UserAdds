@@ -20,12 +20,12 @@ const useStyle = makeStyles((theme) => ({
         marginLeft: '5px',
     },
     btnConfirm: {
-        padding: '10px',
+        paddingTop: '10px',
         float:'left',
         minWidth:'170px',
         "&:hover": {
             background: 'linear-gradient(to right, white, gray)',
-        }
+        },
     },
     confirm: {
         margin: '10px',
@@ -51,7 +51,6 @@ export default function InputCard({ setOpen, listId, type }) {
 
 
     const handleBtnConfirm = () => {
-
         addMoreLists(title);
         setTitle("");
         setOpen(false);
@@ -88,7 +87,7 @@ export default function InputCard({ setOpen, listId, type }) {
             </div>
 
             {/* The below setOpens will collapse the window when user clicks add or cancel buttons. */}
-            <div className={classes.confirm}>
+            <div >
 
                 <Paper className={classes.btnConfirm} onClick={handleBtnConfirm}>
                     <Typography>
