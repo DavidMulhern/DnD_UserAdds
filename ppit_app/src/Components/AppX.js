@@ -186,27 +186,18 @@ export default function AppX() {
 
     //Method to Delete a card from the local data
     const listDelete = (listId) => {
-        console.log("In appX - ListDelete() method")
-        // var listCount = data.listIds.length
-        // var listsArray = data.lists
+        var listCount = data.listIds.length
 
-        // console.log(data.lists)
-        // for (var i = 0; i < listCount; i++) {
-        //      if (data.lists[listId]) {
-
-        //         console.log("Pre: ",data.lists)
-        //         var check = delete data.lists[listId]
-        //         console.log("Check: ",check)
-               
-        //         // const newState = {
-        //         //     ...data
-        //         // };
-        //         // setData(newState)
-        //         // current = newState
-        //      }
-        //     console.log("After if")
-        //     console.log("Post: ",data.lists)
-        // }
+        for (var i = 0; i < listCount; i++) {
+            if (data.listIds[i] == listId) {
+                data.listIds.splice(i, 1)
+                const newState = {
+                    ...data
+                };
+                setData(newState)
+                current = newState
+            }
+        }
     }
 
     //Method to Delete a card from the local data
