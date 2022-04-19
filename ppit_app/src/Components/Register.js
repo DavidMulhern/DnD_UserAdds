@@ -1,8 +1,8 @@
-// Importing use state
+// Importing use state.
 import React, {useState} from 'react';
 // Importing a history hook.
 import { useHistory } from 'react-router-dom'
-// Styling
+// Styling.
 import { makeStyles } from '@material-ui/styles'
 
 const useStyle = makeStyles((theme) => ({
@@ -13,6 +13,9 @@ const useStyle = makeStyles((theme) => ({
         fontFamily:'Nunito',
         justifyContent:'center',
         marginLeft: '15%'
+    },
+    colorText: {
+        color: '#5AFF3D',
     },
 }));
 
@@ -51,13 +54,16 @@ const Register = () => {
         // if the status comes back ok, push to login
         if(data.status === 'ok'){
            history.push('/login')
-        }   
+        }
+        else{
+            alert('Email already in use')
+        } 
     }
 
     return(
         <div className={classes.root}>
             <form onSubmit={registerUser}>
-                <p><h1>Register</h1></p>
+                <p><h1>Regis<span className={classes.colorText}>ter</span></h1></p>
                 <hr />
                 <label>Name: </label>
                 <p><input value={name}

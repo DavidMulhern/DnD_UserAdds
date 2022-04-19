@@ -66,13 +66,13 @@ app.post('/api/login', async (req, res) => {
 
     // Checking if user is valid first.
     if (!user) {
-        return { status: 'error', error: 'Invalid user login' }
+        return res.json({ status: 'error', error: 'Invalid user login' })
     }
 
     // Then, decryption at work. compare(from user, the associated PW with user)
     const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
 
-    if (user) {
+    if (isPasswordValid) {
         // If the user is legit. Issue them a token.
         const token = jwt.sign(
             {

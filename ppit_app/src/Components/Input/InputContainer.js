@@ -29,18 +29,18 @@ export default function InputContainer({ listId, type }) {
 
     // Setting state for when user adds a card.
     const [open, setOpen] = useState(false)
-    //modal represents the popup
+    //modal represents the popup.
     const [modal, setModal] = useState(false);
 
-    //toggle represents the button to activate the Task Popup Modal
+    //toggle represents the button to activate the Task Popup Modal.
     const toggle = () => {
         setModal(!modal);
     }
 
-    //Checking if user is adding a card or adding a list
+    // Checking if user is adding a card or adding a list.
     function check() {
         if (type === 'card') {
-            //Activate the Create Task Popup Modal to creat a new card
+            //Activate the Create Task Popup Modal to creat a new card.
             setModal(true)
         } else {
             //Open the input to add a title to the list

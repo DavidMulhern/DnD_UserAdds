@@ -1,5 +1,4 @@
 // Importing use state
-import userEvent from '@testing-library/user-event';
 import React, {useState} from 'react';
 // Styling
 import { makeStyles } from '@material-ui/styles'
@@ -12,6 +11,9 @@ const useStyle = makeStyles((theme) => ({
         fontFamily:'Nunito',
         justifyContent:'center',
         marginLeft: '15%'
+    },
+    colorText: {
+        color: '#5AFF3D',
     },
 }));
 
@@ -57,7 +59,7 @@ const Login = () => {
     return(
         <div className={classes.root}>
             <form onSubmit={loginUser} className={classes.bg}>
-                <p><h1>Login</h1></p>
+                <p><h1>Log<span className={classes.colorText}>in</span></h1></p>
                 <hr />
                 <label>Email: </label>
                 <p><input value={email}

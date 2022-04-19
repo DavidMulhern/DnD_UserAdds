@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 // Importing components.
 import List from './List/List'
 import store from '../utils/store'
@@ -54,10 +54,6 @@ export default function AppX() {
             if(!user){
                 localStorage.removeItem('token')
                 history.replace('/login')
-            }
-            else{
-                // If user is found, notify back end and populate code.
-                // loadBoard() 
             }
         }
     }, []) 
@@ -141,7 +137,6 @@ export default function AppX() {
             const newListIds = data.listIds;
             newListIds.splice(source.index, 1);
             newListIds.splice(destination.index, 0, draggableId);
-            console.log("push")
             return;
         }
 

@@ -1,8 +1,6 @@
 // Importing functional components.
 import Register from '../Register';
 import Login from '../Login';
-import UserPage from '../UserPage';
-
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Import navbar and nav for navigation.
@@ -25,8 +23,7 @@ class Navibar extends Component {
             <Nav className="me-auto">
               <Nav.Link href="/AppX">Board</Nav.Link>
               <Nav.Link href="/Register">Register</Nav.Link>
-              <Nav.Link href="/Login">Login</Nav.Link>
-              {/* <Nav.Link href="/UserPage">User Page</Nav.Link> */}
+              <Nav.Link href="/Login">Login</Nav.Link>              
             </Nav>
           </Navbar>
           <br />
@@ -36,7 +33,6 @@ class Navibar extends Component {
             <Route path='/AppX' component={AppX} exact />
             <Route path='/Register' component={Register} exact />
             <Route path='/Login' component={Login} exact />
-            <Route path='/UserPage' component={UserPage} exact />
           </Switch>
         </div>
       </Router>

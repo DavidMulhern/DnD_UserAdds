@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Navibar from "./Components/Nav/Navibar";
-import AppX from "./Components/AppX";
 import Navigations from "./Components/Nav/Navigations";
-import Register from "./Components/Register";
 
 export default function App() {
   // Image state.
@@ -16,10 +14,8 @@ export default function App() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
       }}>
-
       <Navigations setBackgroundImage={setBackgroundImage}/>
       <Navibar />
-      {/* <AppX /> */}
     </div>
   )
 }
