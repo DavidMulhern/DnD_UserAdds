@@ -4,10 +4,9 @@ import { CKEditor, ExportPdf } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // import './modalDesign.css';
 
-
-
 const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
 
+    //State for the content of the rich text editor
     const [rteValue, setRteValue] = useState('');
 
     //Updates the state of the rich text editor
@@ -30,20 +29,17 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
         updateTask(taskObj)
     }
 
-    
-
     //Renders an editable version of the rich text editor.
     return (
         <Modal isOpen={modal} toggle={toggle} contentClassName="your-custom-class">
             <ModalHeader toggle={toggle}>Edit Card</ModalHeader>
             <ModalBody>
-
                 <div className="App">
                     {/* Rich Text Editor configuration */}
                     <CKEditor
                         config={
                             {
-
+                                //Connection to the plugin service for hosting uploaded images
                                 cloudServices: {
                                     uploadUrl: "https://88037.cke-cs.com/easyimage/upload/",
                                     tokenUrl: "https://88037.cke-cs.com/token/dev/6e01c8623c56aff50aa32641f07587279495e197321c729232e08020e47e?limit=10"
@@ -63,7 +59,7 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
             </ModalBody>
             <ModalFooter>
                 <Button color="primary" onClick={handleUpdate}>Update</Button>{' '}
-                <Button color="secondary" onClick={toggle}> </Button>
+                <Button color="secondary" onClick={toggle}>Cancel</Button>
             </ModalFooter>
         </Modal>
     );

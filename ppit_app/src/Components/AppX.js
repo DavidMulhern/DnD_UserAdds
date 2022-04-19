@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from 'react'
 // Importing components.
 import List from './List/List'
 import store from '../utils/store'
+import Whiteboard from './WhiteBoard/WhiteBoard'
 // Import the API.
 import StoreApi from '../utils/storeApi'
 // Import UUID
@@ -18,7 +19,6 @@ import { Button } from 'reactstrap'
 import jwt_decode from "jwt-decode";
 // Importing a history hook.
 import { useHistory } from 'react-router-dom';
-
 // Global variable only used client side.
 var current
 
@@ -57,7 +57,6 @@ export default function AppX() {
             }
             else{
                 // If user is found, notify back end and populate code.
-                console.log("Boo mfer")
                 // loadBoard() 
             }
         }
@@ -189,8 +188,9 @@ export default function AppX() {
     //Method to Delete a card from the local data
     const listDelete = (listId) => {
         var listCount = data.listIds.length
-
+        //Parse all existing lists/columns
         for (var i = 0; i < listCount; i++) {
+            //If the correct one is found, remove it
             if (data.listIds[i] == listId) {
                 data.listIds.splice(i, 1)
                 const newState = {
@@ -205,7 +205,9 @@ export default function AppX() {
     //Method to Delete a card from the local data
     const cardDelete = (e, cardId, listId) => {
         var cardArray = data.lists[listId].cards
+        //Parse cards array
         for (var i = 0; i < cardArray.length; i++) {
+            //If required card is found, remove it
             if (cardArray[i].id == cardId) {
                 cardArray.splice(i, 1)
                 const newState = {
@@ -220,7 +222,9 @@ export default function AppX() {
     //Method to update the content within a card from the local data
     const cardUpdate = (obj, index, cardId, listId) => {
         var cardArray = data.lists[listId].cards
+        //Prase cards array of a specified column
         for (var i = 0; i < cardArray.length; i++) {
+            //If the correct one is found, update its contents
             if (cardArray[i].id == cardId) {
                 cardArray[i].title = obj
                 const newState = {
@@ -242,7 +246,6 @@ export default function AppX() {
     }
     
     async function loadBoard() {
-        console.log("MFER CLICKED")
         const req = await fetch('http://localhost:8080/api/quote', {
         // Include this in the header
         headers: {
@@ -288,6 +291,17 @@ export default function AppX() {
             }
         }
 
+        const whiteBoard = () => {
+            setModal(!modal);
+        }
+
+        const [modal, setModal] = useState(false);
+
+        //toggle represents the button to activate the Task Popup Modal
+        const toggle = () => {
+            console.log("change modal")
+            setModal(!modal);
+        }
     // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
 
 
@@ -298,6 +312,8 @@ export default function AppX() {
                 <Button onClick={updateBoard} className={classes.rButton}>Save Table</Button>
                 <Button onClick={loadBoard} className={classes.rButton}>Load Table</Button>
                 <Button onClick={resetBoard} className={classes.rButton}>Reset Board</Button>
+                <Button onClick={whiteBoard} className={classes.rButton}>WhiteBoard</Button>
+                <Whiteboard modal={modal} toggle={toggle} />
             </div>
             {/* Using react DnD. Declare this area and drag and drop */}
             {/*onDragEnd is an event that will call a function, we need to note changes once dragged to state*/}

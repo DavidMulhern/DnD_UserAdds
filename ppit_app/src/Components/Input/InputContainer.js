@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Collapse, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles'
 // Component for adding a new list
-import InputCard from './InputCard';
+import InputCard from './InputList';
 // Component for creating a new card
 import CreateTaskPopup from '../../modals/CreateModal';
 
@@ -11,10 +11,12 @@ import CreateTaskPopup from '../../modals/CreateModal';
 // Using styles from the material-ui lib.
 const useStyle = makeStyles((theme) => ({
     root: {
-        marginTop: '25px',
+        marginTop: '25px'
     },
     addCard: {
-        paddingTop: '10px',
+        marginLeft:"10px",
+        marginRight:"10px",
+        padding: '10px',
         "&:hover": {
             background: 'linear-gradient(to right, white, gray)',
         }
@@ -45,9 +47,6 @@ export default function InputContainer({ listId, type }) {
             setOpen(!open)
         }
     }
-
-
-
     return (
         <div className={classes.root}>
             <Collapse in={open}>

@@ -3,11 +3,8 @@ import React, { useContext, useState } from 'react'
 import { InputBase, Typography, Button } from '@material-ui/core'
 // Styling for the list.
 import { makeStyles } from '@material-ui/styles'
-
-// API Component.
+// Local data Component.
 import storeApi from '../../utils/storeApi';
-
-
 // Styling.
 // Using styles from the material-ui lib.
 const useStyle = makeStyles((theme) => ({
@@ -18,6 +15,7 @@ const useStyle = makeStyles((theme) => ({
     // Styling when editing. flexGrow pushes three dots to end.
     editableTitle: {
         flexGrow: 1,
+        
     },
     input: {
         marginLeft: '15px',
@@ -30,7 +28,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 // This function controls the state of the title. Allows user to edit title on column.
-export default function Title({ title, listId, listDelete}) {
+export default function Title({ title, listId, listDelete }) {
     // Create state.
     const [open, setOpen] = useState(false)
     // Title state.
@@ -44,15 +42,14 @@ export default function Title({ title, listId, listDelete}) {
         // Taking the target value and setting a new title.
         setNewTitle(e.target.value);
     }
-
     // After user updates title, clicks off field and it updates.
     const handleOnBlur = () => {
         updateListTitle(newTitle, listId);
         setOpen(false);
     }
 
-    const handleDelete=()=>{
-
+    //Handles deleting a column
+    const handleDelete = () => {
         listDelete(listId)
     }
 
@@ -61,9 +58,8 @@ export default function Title({ title, listId, listDelete}) {
             {/* user does not click. */}
             {open ? (
                 <div>
-
                     <InputBase
-                        style={{}}
+                        style={{ "overflow": "hidden", "overflowWrap": "break-word" }}
                         // On change event to change title text.
                         onChange={handleOnChange}
                         autoFocus
