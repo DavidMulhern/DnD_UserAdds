@@ -2,7 +2,6 @@
 import Register from '../Register';
 import Login from '../Login';
 import UserPage from '../UserPage';
-import WhiteBoard from '../WhiteBoard/WhiteBoard';
 
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,11 +24,9 @@ class Navibar extends Component {
             <Navbar.Brand href="/">KanSchan</Navbar.Brand>
             <Nav className="me-auto">
               <Nav.Link href="/AppX">Board</Nav.Link>
-              {/* <Nav.Link href="/ToDoList">ToDoList</Nav.Link> */}
               <Nav.Link href="/Register">Register</Nav.Link>
               <Nav.Link href="/Login">Login</Nav.Link>
               {/* <Nav.Link href="/UserPage">User Page</Nav.Link> */}
-              <Nav.Link href="/WhiteBoard">WhiteBoard</Nav.Link>
             </Nav>
           </Navbar>
           <br />
@@ -40,7 +37,6 @@ class Navibar extends Component {
             <Route path='/Register' component={Register} exact />
             <Route path='/Login' component={Login} exact />
             <Route path='/UserPage' component={UserPage} exact />
-            <Route path='/WhiteBoard' component={WhiteBoard} exact />
           </Switch>
         </div>
       </Router>

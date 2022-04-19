@@ -1,13 +1,13 @@
 import React from 'react'
 // UI library
-import { Paper, Typography, CssBaseline } from '@material-ui/core'
+import { Paper, CssBaseline } from '@material-ui/core'
 // Styling for the list.
 import { makeStyles } from '@material-ui/styles'
 // Import components.
 import Title from './Title';
 import Cardx from './Cardx';
 import InputContainer from '../Input/InputContainer';
-// Import DnD 
+// Import DnD components
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 // Using styles from the material-ui lib.
@@ -26,14 +26,9 @@ const useStyle = makeStyles((theme) => ({
 export default function List({ list, index,cardDelete, cardUpdate, listDelete }){
     // Get handle on style.
     const classes = useStyle();
-    // Making the whole column draggable.
 
-    const confirmDelete = () => {
-        console.log("IN DELETE BUTTON, ",list.id)
-    }
-    
     return(
-
+    // Making the whole column draggable.
         <Draggable draggableId={list.id} index={index}>
             {(provided)=>(
                 <div {...provided.draggableProps} ref={provided.innerRef}>

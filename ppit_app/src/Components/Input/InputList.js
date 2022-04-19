@@ -14,15 +14,13 @@ const useStyle = makeStyles((theme) => ({
     card: {
         width: '200px',
         margin: '10px',
-        paddingBottom: '30px',
     },
     input: {
         marginLeft: '5px',
     },
     btnConfirm: {
-        paddingTop: '10px',
-        float:'left',
-        minWidth:'170px',
+        padding: '8px',
+        margin: '10px',
         "&:hover": {
             background: 'linear-gradient(to right, white, gray)',
         },
