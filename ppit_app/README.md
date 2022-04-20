@@ -10,7 +10,7 @@ Professional practives in IT - 2022.
 
 In order to run this application you will need to install node.js
 
-Link:
+Link: https://nodejs.org/en/download/
 
 In the project directory, you can run:
 
