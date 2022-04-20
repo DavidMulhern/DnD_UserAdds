@@ -59,7 +59,7 @@ const Register = () => {
             alert('Email already in use')
         } 
     }
-
+    // Form displayed to the user.
     return(
         <div className={classes.root}>
             <form onSubmit={registerUser}>

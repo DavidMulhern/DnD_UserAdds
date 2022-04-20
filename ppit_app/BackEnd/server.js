@@ -15,7 +15,6 @@ const { findByIdAndUpdate } = require('./models/user.model');
 
 const app = express();
 const PORT = process.env.PORT || 8080;
-//
 //----------------------------------------------------MONGOOSE CONNECTION-------------------------------------------------------
 //Mongo database link
 const MONGODB_URI = 'mongodb+srv://svetlin:svetlin@cluster0.mfk7y.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
@@ -26,7 +25,7 @@ mongoose.connect(MONGODB_URI, {
 })
 //Checks to make sure mongoos is connected (printing to console if it is connected)
 mongoose.connection.on('connected', () => {
-    console.log('Mongoos is connected');
+    console.log('Mongoose is connected');
 })
 
 //----------------------------------------------------OTHER CONNECTIONS-------------------------------------------------------

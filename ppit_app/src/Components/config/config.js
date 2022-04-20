@@ -1,6 +1,6 @@
 const config = {
     url: 'https://api.unsplash.com/',
-    clientKey: '',
+    clientKey: '// Form displayed to the user.',
 };
 
 export default config;

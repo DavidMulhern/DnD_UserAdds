@@ -14,6 +14,7 @@ export default function App() {
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
       }}>
+      {/* First components to be called */}
       <Navigations setBackgroundImage={setBackgroundImage}/>
       <Navibar />
     </div>

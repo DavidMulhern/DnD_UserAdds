@@ -1,3 +1,4 @@
+// This is a blank canvas for when the user resets the baord. 
 const cards = [
   {
     id: 'card-1',

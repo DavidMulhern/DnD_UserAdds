@@ -45,7 +45,7 @@ export default function SideMenu({openSideMenu, setOpenSideMenu, setNewBgImage,}
         console.log(listOfImages);
         setImage(listOfImages);
     }
-
+    // Getting the images from the API on load.
     useEffect(()=>{
         getListOfImage();
     },[])

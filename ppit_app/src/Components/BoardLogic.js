@@ -217,7 +217,7 @@ export default function AppX() {
     //Method to update the content within a card from the local data
     const cardUpdate = (obj, index, cardId, listId) => {
         var cardArray = data.lists[listId].cards
-        //Prase cards array of a specified column
+        //Parse cards array of a specified column
         for (var i = 0; i < cardArray.length; i++) {
             //If the correct one is found, update its contents
             if (cardArray[i].id == cardId) {
@@ -231,7 +231,7 @@ export default function AppX() {
         }
     }
 
-    //On screen button, dont think it really does anything anymore
+    //On screen button will reset the board.
     const resetBoard = () => {
         setData(clean);
         window.location.reload(false);
@@ -239,7 +239,7 @@ export default function AppX() {
     
     async function loadBoard() {
         const req = await fetch('http://localhost:8080/api/quote', {
-        // Include this in the header
+        // Include the token in the header
         headers: {
             'x-access-token': localStorage.getItem('token'),
         },
@@ -247,7 +247,6 @@ export default function AppX() {
     const data = await req.json()
         // Populate the quote variable if the data status returns 'ok'.
         if(data.status === 'ok'){
-            // setQuote(data.quote)
             let obj = JSON.parse(data.quote)
             setData(obj);
             current = obj
@@ -257,50 +256,49 @@ export default function AppX() {
         }
     }
     
-        // Update quote function. Update the backend.
-        async function updateBoard(){
-            // Stringify the current board. Ready to send to DB
-            var boardDetails = JSON.stringify(current)
-            // event.preventDefault()
-            const req = await fetch('http://localhost:8080/api/quote', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-access-token': localStorage.getItem('token'),
-                },
-                // Stringify the body for the post. JSON.stringify()
-                body: JSON.stringify({
-                    quote: boardDetails,
-                }),
-            })
-            const data = await req.json()
-            // Populate the quote variable if the data status returns 'ok'.
-            if(data.status === 'ok'){
-                setData(current)
-            }
-            else{
-                alert(data.error)
-            }
+    // Update quote function. Update the backend.
+    async function updateBoard(){
+        // Stringify the current board. Ready to send to DB
+        var boardDetails = JSON.stringify(current)
+        const req = await fetch('http://localhost:8080/api/quote', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('token'),
+            },
+            // Stringify the body for the post.
+            body: JSON.stringify({
+                quote: boardDetails,
+            }),
+        })
+        const data = await req.json()
+        // Populate the quote variable if the data status returns 'ok'.
+        if(data.status === 'ok'){
+            setData(current)
         }
-
-        const whiteBoard = () => {
-            setModal(!modal);
+        else{
+            alert(data.error)
         }
+    }
 
-        const [modal, setModal] = useState(false);
+    const whiteBoard = () => {
+        setModal(!modal);
+    }
 
-        //toggle represents the button to activate the Task Popup Modal
-        const toggle = () => {
-            console.log("change modal")
-            setModal(!modal);
-        }
+    const [modal, setModal] = useState(false);
+
+    //toggle represents the button to activate the Task Popup Modal
+    const toggle = () => {
+        console.log("change modal")
+        setModal(!modal);
+    }
 
     return (
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
         <StoreApi.Provider value={{ addMoreCards, addMoreLists, updateListTitle }}>
             <div >
-                <Button onClick={updateBoard} className={classes.rButton}>Save Table</Button>
-                <Button onClick={loadBoard} className={classes.rButton}>Load Table</Button>
+                <Button onClick={updateBoard} className={classes.rButton}>Save Board</Button>
+                <Button onClick={loadBoard} className={classes.rButton}>Load Board</Button>
                 <Button onClick={resetBoard} className={classes.rButton}>Reset Board</Button>
                 <Button onClick={whiteBoard} className={classes.rButton}>WhiteBoard</Button>
                 <Whiteboard modal={modal} toggle={toggle} />

@@ -55,7 +55,7 @@ const Login = () => {
             alert('Please check username and password')
         }
     }
-
+    // Form displayed to the user.
     return(
         <div className={classes.root}>
             <form onSubmit={loginUser} className={classes.bg}>

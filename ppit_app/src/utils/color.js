@@ -1,3 +1,4 @@
+// Locally stored colors which SideMenu.js uses to display to the user as options.
 const colors = [
     'linear-gradient(to right, gray, gray)',
     'linear-gradient(to right, red, red)',
