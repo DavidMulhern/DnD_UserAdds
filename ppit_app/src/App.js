@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Navibar from "./Components/Nav/Navibar";
-import Navigations from "./Components/Nav/Navigations";
+import Navibar from "./Components/Navigation/Navibar";
+import Navigations from "./Components/Navigation/Navigations";
 
 export default function App() {
   // Image state.

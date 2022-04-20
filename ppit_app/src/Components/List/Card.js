@@ -5,8 +5,8 @@ import { makeStyles } from '@material-ui/styles'
 //Drag and drop import 
 import { Draggable } from 'react-beautiful-dnd';
 //Importing components for card handling
-import EditTask from '../../modals/EditModal';
-import ViewTask from '../../modals/ViewModal';
+import EditTask from '../CardModals/EditModal';
+import ViewTask from '../CardModals/ViewModal';
 
 // Using styles from the material-ui lib.
 const useStyle = makeStyles((theme) => ({

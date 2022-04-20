@@ -1,6 +1,8 @@
 // Importing functional components.
-import Register from '../Register';
-import Login from '../Login';
+import Register from '../UserAccount/Register';
+import Login from '../UserAccount/Login';
+import AppX from '../BoardLogic';
+import LandingPage from '../UserAccount/LandingPage';
 // Imported bootstrap lib
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Import navbar and nav for navigation.
@@ -9,8 +11,6 @@ import { Navbar, Nav } from 'react-bootstrap'
 import React, { Component } from 'react';
 // import react router DOM for routing. Alias for BrowserRouter for easier use.
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import AppX from '../AppX';
-import LandingPage from '../LandingPage';
 
 // Need to place into classes/functions so app can render different pages/Components.
 class Navibar extends Component {

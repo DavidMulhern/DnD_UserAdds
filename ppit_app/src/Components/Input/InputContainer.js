@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles'
 // Component for adding a new list
 import InputCard from './InputList';
 // Component for creating a new card
-import CreateTaskPopup from '../../modals/CreateModal';
+import CreateTaskPopup from '../CardModals/CreateModal';
 
 
 // Using styles from the material-ui lib.
