@@ -66,7 +66,7 @@ const Register = () => {
                 <p><h1>Regis<span className={classes.colorText}>ter</span></h1></p>
                 <hr />
                 <label>Name: </label>
-                <p><input value={name}
+                <p><input value={name} minLength="3"
                 onChange={(e) => setName(e.target.value)}
                 type = "text"
                 placeholer="Name" 
