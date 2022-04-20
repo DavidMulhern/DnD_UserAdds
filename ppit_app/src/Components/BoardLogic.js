@@ -13,7 +13,7 @@ import InputContainer from './Input/InputContainer'
 import { makeStyles } from '@material-ui/styles'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 // CSS
-import '../modals/modalDesign.css';
+import './CardModals/ModalDesign.css';
 import { Button } from 'reactstrap'
 // jwt decode imported
 import jwt_decode from "jwt-decode";
@@ -30,7 +30,7 @@ const useStyle = makeStyles((theme) => ({
         overflowY: 'auto',
     },
     rButton: {
-        marginTop: '2%',
+        marginTop: '1%',
         marginLeft: '2%'
     },
 }));
@@ -150,7 +150,7 @@ export default function AppX() {
             // Moving to new locations
             sourceList.cards.splice(source.index, 1);
             destinationList.cards.splice(destination.index, 0, draggingCard)
-            // Update the state. ******** POTENTIALLY, HERE FOR A STATE UPDATE ON DB ********
+            // Update the state.
             const newState = {
                 ...data,
                 lists: {
@@ -231,9 +231,6 @@ export default function AppX() {
         }
     }
 
-
-    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
-
     //On screen button, dont think it really does anything anymore
     const resetBoard = () => {
         setData(clean);
@@ -297,8 +294,6 @@ export default function AppX() {
             console.log("change modal")
             setModal(!modal);
         }
-    // ------------------------------------------ NEW 14.04 ---------------------------------------------------------------------
-
 
     return (
         // Provider allows us to pass values between components without having to pass props through every level of the tree! *Neat*
@@ -310,14 +305,13 @@ export default function AppX() {
                 <Button onClick={whiteBoard} className={classes.rButton}>WhiteBoard</Button>
                 <Whiteboard modal={modal} toggle={toggle} />
             </div>
-            {/* Using react DnD. Declare this area and drag and drop */}
+            {/*Using react DnD. Declare this area and drag and drop */}
             {/*onDragEnd is an event that will call a function, we need to note changes once dragged to state*/}
             <DragDropContext onDragEnd={onDragEnd}>
                 {/* Making the whole column droppable */}
                 <Droppable droppableId='app' type="list" direction='horizontal'>
                     {(provided) => (
-                        <div className={classes.root} ref={provided.innerRef} {...provided.droppableProps}
-                        >
+                        <div className={classes.root} ref={provided.innerRef} {...provided.droppableProps}>
                             {/* Mapping through the store.js file, and retrieving the list by their id's, one at a time into list array */}
                             {data.listIds.map((listId, index) => {
                                 const list = data.lists[listId]

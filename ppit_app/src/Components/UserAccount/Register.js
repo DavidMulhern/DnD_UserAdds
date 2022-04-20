@@ -75,7 +75,7 @@ const Register = () => {
                 <label>Email: </label>
                 <p><input value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                type = "text"
+                type = "email"
                 placeholer="Email" 
                 /></p>
                 <br />

@@ -5,7 +5,7 @@ import { Paper, CssBaseline } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 // Import components.
 import Title from './Title';
-import Cardx from './Cardx';
+import Cardx from './Card';
 import InputContainer from '../Input/InputContainer';
 // Import DnD components
 import { Draggable, Droppable } from 'react-beautiful-dnd';

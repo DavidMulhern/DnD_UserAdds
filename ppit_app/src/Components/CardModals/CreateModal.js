@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 //Local data reference
-import storeApi from '../utils/storeApi';
+import storeApi from '../../utils/storeApi';
 
 const CreateTaskPopup = ({ modal, toggle, listId }) => {
 

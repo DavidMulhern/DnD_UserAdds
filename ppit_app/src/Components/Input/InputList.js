@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles'
 import ClearIcon from '@mui/icons-material/Clear';
 import storeApi from '../../utils/storeApi';
 
-import CreateModal from '../../modals/CreateModal';
+import CreateModal from '../CardModals/CreateModal';
 
 
 // Using styles from the material-ui lib.
