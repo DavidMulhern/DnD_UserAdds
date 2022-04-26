@@ -7,7 +7,7 @@ const User = new mongoose.Schema(
     name: {type: String, required: true},
     email: {type: String, required: true, unique: true}, // Ensure the email is unique. This will create an index in mongoDB (No duplicity).
     password: {type: String, required: true},
-    quote: { type: String },
+    board: { type: String },
     },
     // Name of table/collection.
     { collection: 'user-data'} 

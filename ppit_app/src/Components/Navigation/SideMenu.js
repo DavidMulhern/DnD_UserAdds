@@ -42,7 +42,6 @@ export default function SideMenu({openSideMenu, setOpenSideMenu, setNewBgImage,}
     const getListOfImage =async () => {
         // Calling the function in ImageAPI. Returns photos
         const listOfImages = await getImages();
-        console.log(listOfImages);
         setImage(listOfImages);
     }
     // Getting the images from the API on load.

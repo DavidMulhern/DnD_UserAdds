@@ -91,7 +91,7 @@ app.post('/api/login', async (req, res) => {
 })
 
 // New endpoint with use of token. 
-app.get('/api/quote', async (req, res) => {
+app.get('/api/board', async (req, res) => {
 
     // Getting a handle on the locally stored token.
     const token = req.headers['x-access-token']
@@ -101,18 +101,18 @@ app.get('/api/quote', async (req, res) => {
         const decoded = jwt.verify(token, 'token123')
         // Once we have the email, we can get the user.
         const email = decoded.email
-        // Once we have the user we can get the quote.
+        // Once we have the user we can get the board.
         const user = await User.findOne({ email: email })
 
-        return res.json({ status: 'ok', quote: user.quote })
+        return res.json({ status: 'ok', board: user.board })
     } catch (err) {
         console.log(err)
         res.json({ status: 'error', error: 'invalid token' })
     }
 })
 
-// Add the quote.
-app.post('/api/quote', async (req, res) => {
+// Add the board.
+app.post('/api/board', async (req, res) => {
     // Getting a handle on the locally stored token.
     const token = req.headers['x-access-token']
 
@@ -121,8 +121,8 @@ app.post('/api/quote', async (req, res) => {
         const decoded = jwt.verify(token, 'token123')
         // Once we have the email, we can get the user.
         const email = decoded.email
-        // Here we update one by setting quote with the body passed.
-        await User.updateOne({ email: email }, { $set: { quote: req.body.quote } })
+        // Here we update one by setting board with the body passed.
+        await User.updateOne({ email: email }, { $set: { board: req.body.board } })
 
         return res.json({ status: 'ok' })
     } catch (err) {

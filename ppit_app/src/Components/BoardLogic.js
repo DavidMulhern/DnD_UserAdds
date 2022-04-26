@@ -45,6 +45,7 @@ export default function AppX() {
     const history = useHistory()
     // Performing a check on user and token(s) when component mounts.
     useEffect(() => {
+        current = clean
         // Getting token from local storage.
         const token = localStorage.getItem('token')
         if(token){
@@ -238,16 +239,16 @@ export default function AppX() {
     }
     
     async function loadBoard() {
-        const req = await fetch('http://localhost:8080/api/quote', {
+        const req = await fetch('http://localhost:8080/api/board', {
         // Include the token in the header
         headers: {
             'x-access-token': localStorage.getItem('token'),
         },
     })
     const data = await req.json()
-        // Populate the quote variable if the data status returns 'ok'.
+        // Populate the board variable if the data status returns 'ok'.
         if(data.status === 'ok'){
-            let obj = JSON.parse(data.quote)
+            let obj = JSON.parse(data.board)
             setData(obj);
             current = obj
         }
@@ -256,11 +257,11 @@ export default function AppX() {
         }
     }
     
-    // Update quote function. Update the backend.
+    // Update board function. Update the backend.
     async function updateBoard(){
         // Stringify the current board. Ready to send to DB
         var boardDetails = JSON.stringify(current)
-        const req = await fetch('http://localhost:8080/api/quote', {
+        const req = await fetch('http://localhost:8080/api/board', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -268,11 +269,11 @@ export default function AppX() {
             },
             // Stringify the body for the post.
             body: JSON.stringify({
-                quote: boardDetails,
+                board: boardDetails,
             }),
         })
         const data = await req.json()
-        // Populate the quote variable if the data status returns 'ok'.
+        // Populate the board variable if the data status returns 'ok'.
         if(data.status === 'ok'){
             setData(current)
         }
