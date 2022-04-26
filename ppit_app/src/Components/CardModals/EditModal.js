@@ -43,6 +43,7 @@ const EditTask = ({ modal, toggle, updateTask, taskObj }) => {
                                 cloudServices: {
                                     uploadUrl: "https://88037.cke-cs.com/easyimage/upload/",
                                     tokenUrl: "https://88037.cke-cs.com/token/dev/932e311019c76938357a260fb6730d960f8e5d4b0516b3a54cf87fd5de00?limit=10"
+
                                 },
  
                             }
